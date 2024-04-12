@@ -56,6 +56,13 @@ class FespTheme {
 
   static ThemeData _getTheme(ThemeData theme) {
     return theme.copyWith(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedIconTheme: IconThemeData(
+          size: 30,
+        ),
+      ),
       listTileTheme: ListTileThemeData(shape: defaultBorderRadius),
       checkboxTheme: CheckboxThemeData(shape: defaultBorderRadius),
       visualDensity: VisualDensity.compact,

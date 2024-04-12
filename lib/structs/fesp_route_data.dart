@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class FespRout {
+class FespRoutData {
   final String path;
   final Widget widget;
 
-  FespRout({
+  FespRoutData({
     required this.path,
     required this.widget,
   });

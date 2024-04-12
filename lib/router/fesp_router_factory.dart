@@ -1,9 +1,9 @@
 import 'package:flutter_easy_start_project/containers/fesp_base_page.dart';
-import 'package:flutter_easy_start_project/structs/fesp_nav_item.dart';
+import 'package:flutter_easy_start_project/structs/fesp_nav_item_data.dart';
 import 'package:go_router/go_router.dart';
 
-abstract class FespRouterFactory {
-  static GoRouter? getRouterConfig(List<FespNavItem>? navItems) {
+abstract class FespRoutDataerFactory {
+  static GoRouter? getRouterConfig(List<FespNavItemData>? navItems) {
     if (navItems == null) {
       return null;
     }
@@ -34,7 +34,7 @@ abstract class FespRouterFactory {
     return route;
   }
 
-  static List<GoRoute> _getRouters(List<FespNavItem>? navItems) {
+  static List<GoRoute> _getRouters(List<FespNavItemData>? navItems) {
     if (navItems == null) {
       return [];
     }

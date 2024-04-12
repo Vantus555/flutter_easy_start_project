@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class FespNavItem {
+class FespNavItemData {
   final IconData icon;
   final IconData activeIcon;
   final String title;
   final String? label;
   final String path;
   final Widget child;
-  final List<FespNavItem>? routes;
+  final List<FespNavItemData>? routes;
 
-  FespNavItem({
+  FespNavItemData({
     required this.icon,
     required this.activeIcon,
     required this.title,

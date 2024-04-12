@@ -15,15 +15,13 @@ class FespBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.read<FespAppProvider>();
 
-    if (provider.data == null ||
-        provider.data!.navItems == null ||
-        provider.data!.navItems!.length < 2) {
+    if (provider.data.navItems == null || provider.data.navItems!.length < 2) {
       return const SizedBox.shrink();
     }
 
     final List<BottomNavigationBarItem> items = [];
 
-    for (var element in provider.data!.navItems!) {
+    for (var element in provider.data.navItems!) {
       items.add(
         BottomNavigationBarItem(
           icon: Icon(element.icon),

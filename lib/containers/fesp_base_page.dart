@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easy_start_project/nav/fesp_nav_bar.dart';
+import 'package:flutter_easy_start_project/nodes/fesp_nav_bar.dart';
 import 'package:flutter_easy_start_project/nodes/fesp_theme_tggler.dart';
 import 'package:go_router/go_router.dart';
 
