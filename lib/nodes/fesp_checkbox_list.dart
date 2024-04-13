@@ -50,7 +50,7 @@ class FespCheckboxList extends FespNode {
               }
             },
           );
-          children.add(FespNode.getTrueNode(this, tile));
+          children.add(getTrueNode(tile));
         });
 
         return Column(

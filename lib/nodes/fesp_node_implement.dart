@@ -4,8 +4,8 @@ class FespNode extends StatelessWidget {
   final Widget Function(Widget current, int index)? onCopyWith;
   const FespNode({super.key, this.onCopyWith});
 
-  static Widget getTrueNode(FespNode node, Widget current, {int index = 0}) {
-    return node.onCopyWith == null ? current : node.onCopyWith!(current, index);
+  Widget getTrueNode(Widget current, {int index = 0}) {
+    return onCopyWith == null ? current : onCopyWith!(current, index);
   }
 
   @override

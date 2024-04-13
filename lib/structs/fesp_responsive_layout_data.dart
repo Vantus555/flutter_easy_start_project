@@ -10,6 +10,6 @@ class FespResponsiveLayoutData {
     this.md = 768,
     this.lg = 992,
     this.xl = 1200,
-    this.xxl = 1400,
+    this.xxl = 1600,
   });
 }

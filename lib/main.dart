@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_start_project/containers/fesp_app.dart';
 import 'package:flutter_easy_start_project/containers/fesp_demo.dart';
+import 'package:flutter_easy_start_project/nodes/fesp_container.dart';
 import 'package:flutter_easy_start_project/nodes/fesp_responsive_layout.dart';
 import 'package:flutter_easy_start_project/structs/fesp_app_data.dart';
 import 'package:flutter_easy_start_project/structs/fesp_nav_item_data.dart';
@@ -35,13 +36,12 @@ class MyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FespResponsiveLayout(
-      xs: Text("xs"),
-      sm: Text("sm"),
-      md: Text("md"),
-      lg: Text("lg"),
-      xl: Text("xl"),
-      xxl: Text("xxl"),
+    return FespContainer(
+      containerSize: FespContainerSize.MD_CONTAINER,
+      child: Container(
+        color: Colors.amber,
+        child: const Text('FespContainer'),
+      ),
     );
   }
 }
