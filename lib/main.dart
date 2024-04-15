@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_start_project/containers/fesp_app.dart';
-import 'package:flutter_easy_start_project/containers/fesp_demo.dart';
 import 'package:flutter_easy_start_project/nodes/fesp_container.dart';
-import 'package:flutter_easy_start_project/nodes/fesp_responsive_layout.dart';
 import 'package:flutter_easy_start_project/structs/fesp_app_data.dart';
 import 'package:flutter_easy_start_project/structs/fesp_nav_item_data.dart';
 
 void main() {
   FespApp(
     data: FespAppData(
+      mainContainerData: const FespContainerData(
+        size: FespContainerSize.SM,
+      ),
       navItems: [
         FespNavItemData(
           icon: Icons.home_outlined,
           activeIcon: Icons.home,
           title: "main",
           label: "main",
-          child: const FespDemo(),
+          child: const Text('1'),
           path: '/',
         ),
         FespNavItemData(
@@ -36,12 +37,15 @@ class MyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FespContainer(
-      containerSize: FespContainerSize.MD_CONTAINER,
-      child: Container(
-        color: Colors.amber,
-        child: const Text('FespContainer'),
-      ),
+    final List<Widget> data = [];
+
+    for (var i = 0; i < 140; i++) {
+      data.add(Text('data $i'));
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: data,
     );
   }
 }

@@ -5,9 +5,11 @@ import 'package:provider/provider.dart';
 
 class FespBottomNavBar extends StatelessWidget {
   final StatefulNavigationShell child;
+  final bool rail;
 
   const FespBottomNavBar({
     super.key,
+    required this.rail,
     required this.child,
   });
 
@@ -19,6 +21,33 @@ class FespBottomNavBar extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    if (rail) return _getNavRail(provider);
+
+    return _getBottomNavBar(provider);
+  }
+
+  Widget _getNavRail(FespAppProvider provider) {
+    final List<NavigationRailDestination> items = [];
+
+    for (var element in provider.data.navItems!) {
+      items.add(
+        NavigationRailDestination(
+          icon: Icon(element.icon),
+          selectedIcon: Icon(element.activeIcon),
+          label: const Text(''),
+        ),
+      );
+    }
+
+    return NavigationRail(
+      labelType: NavigationRailLabelType.none,
+      destinations: items,
+      selectedIndex: child.currentIndex,
+      onDestinationSelected: (index) => child.goBranch(index),
+    );
+  }
+
+  Widget _getBottomNavBar(FespAppProvider provider) {
     final List<BottomNavigationBarItem> items = [];
 
     for (var element in provider.data.navItems!) {
@@ -32,6 +61,7 @@ class FespBottomNavBar extends StatelessWidget {
     }
 
     return BottomNavigationBar(
+      landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
       type: BottomNavigationBarType.fixed,
       currentIndex: child.currentIndex,
       onTap: (index) => child.goBranch(index),

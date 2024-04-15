@@ -32,19 +32,21 @@ class FespResponsiveLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final layouts = context.read<FespAppProvider>().data.responsiveData;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final layouts = context.read<FespAppProvider>().data.responsiveData;
+        final width = constraints.minWidth;
 
-    final width = mediaQuery.size.width;
-
-    if (width < layouts.sm) return _getLayoutWidget();
-    if (width <= layouts.md) return _getLayoutWidget(offset: 1);
-    if (width <= layouts.lg) return _getLayoutWidget(offset: 2);
-    if (width <= layouts.xl) return _getLayoutWidget(offset: 3);
-    if (width <= layouts.xxl)
-      return _getLayoutWidget(offset: 4);
-    else
-      return _getLayoutWidget(offset: 5);
+        if (width < layouts.sm) return _getLayoutWidget();
+        if (width <= layouts.md) return _getLayoutWidget(offset: 1);
+        if (width <= layouts.lg) return _getLayoutWidget(offset: 2);
+        if (width <= layouts.xl) return _getLayoutWidget(offset: 3);
+        if (width <= layouts.xxl)
+          return _getLayoutWidget(offset: 4);
+        else
+          return _getLayoutWidget(offset: 5);
+      },
+    );
   }
 
   Widget _getLayoutWidget({int offset = 0}) {
