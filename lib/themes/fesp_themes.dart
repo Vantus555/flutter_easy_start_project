@@ -63,12 +63,12 @@ class FespTheme {
           size: 30,
         ),
       ),
-      listTileTheme: ListTileThemeData(shape: defaultBorderRadius),
-      checkboxTheme: CheckboxThemeData(shape: defaultBorderRadius),
+      listTileTheme: ListTileThemeData(shape: FESP_SHAPE),
+      checkboxTheme: CheckboxThemeData(shape: FESP_SHAPE),
       visualDensity: VisualDensity.compact,
       inputDecorationTheme: theme.inputDecorationTheme.copyWith(
-        border: fespTextInputBorder,
-        contentPadding: fespTextInputContentPadding,
+        border: FESP_TEXT_INPUT_BORDER,
+        contentPadding: FESP_TEXT_INPUT_CONTENT_PADDING,
       ),
     );
   }

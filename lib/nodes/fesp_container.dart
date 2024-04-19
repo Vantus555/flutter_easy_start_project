@@ -1,7 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_easy_start_project/nodes/fesp_node_implement.dart';
 import 'package:flutter_easy_start_project/nodes/fesp_responsive_layout.dart';
 import 'package:flutter_easy_start_project/structs/fesp_responsive_layout_data.dart';
 import 'package:flutter_easy_start_project/view_models/fesp_app_providesr.dart';
@@ -31,13 +30,12 @@ class FespContainerData {
   });
 }
 
-class FespContainer extends FespNode {
+class FespContainer extends StatelessWidget {
   final FespContainerData settings;
   final Widget child;
 
   const FespContainer({
     super.key,
-    super.onCopyWith,
     this.settings = const FespContainerData(),
     required this.child,
   });
@@ -127,13 +125,11 @@ class FespContainer extends FespNode {
   }
 
   Widget _getContainer(double size) {
-    return getTrueNode(
-      Align(
-        alignment: Alignment.topCenter,
-        child: SizedBox(
-          width: size,
-          child: child,
-        ),
+    return Align(
+      alignment: Alignment.topCenter,
+      child: SizedBox(
+        width: size,
+        child: child,
       ),
     );
   }
