@@ -6,6 +6,7 @@ import 'package:source_gen/source_gen.dart';
 class VisitorElement {
   final String name;
   final String type;
+  final String? returnType;
   final List<String> argsList;
   final String argsString;
   final bool isFunction;
@@ -14,6 +15,7 @@ class VisitorElement {
   VisitorElement({
     required this.name,
     required this.type,
+    this.returnType,
     this.argsList = const [],
     this.argsString = '',
     this.isFunction = false,
@@ -51,10 +53,9 @@ class FespElementVisitor extends SimpleElementVisitor<void> {
   void visitFieldElement(FieldElement element) {
     final value = element.type.toString().replaceFirst('*', '');
 
-    print(value);
     if (value.contains('Function')) {
       List<String> splitter = value.split('Function');
-      String type = splitter[0];
+      String returnType = splitter[0];
       String argsString = splitter[1];
 
       if (argsString.substring(argsString.length - 2) == ')?')
@@ -69,25 +70,23 @@ class FespElementVisitor extends SimpleElementVisitor<void> {
         int index = 0;
         argsList = argsString.split(',');
 
-        argsString = argsList
-            .map((e) {
+        argsString = argsList.map((e) {
               String res = '${e} p${index}';
               index++;
               if (argsList.length == index) {
                 res += ',';
               }
               return res;
-            })
-            .toString()
-            .replaceAll('(', '')
-            .replaceAll(')', '');
+            }).join(',') +
+            ',';
         ;
       }
 
       fields.add(
         VisitorElement(
           name: element.name,
-          type: type,
+          type: value,
+          returnType: returnType,
           argsList: argsList,
           argsString: argsString,
           isFunction: true,

@@ -1,33 +1,53 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
-import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:flutter_easy_start_project/view_models/fesp_value_change_provider.dart';
-import 'package:flutter_easy_start_project_generator/fesp_node_builders.dart';
+import 'package:flutter_easy_start_project_generator/fesp_node_classes.dart';
 import 'package:provider/provider.dart';
 
 part 'fesp_slider.g.dart';
 
-@CopyWith()
-class FespSliderBuilderData {
-  final int? divisions;
-  final double min;
-  final double max;
-  final double value;
-  final String label;
-  final Function(double value)? onChanged;
-
-  const FespSliderBuilderData({
-    required this.value,
-    this.label = '',
-    this.onChanged,
-    this.min = 0,
-    this.max = 1,
-    this.divisions,
-  });
-}
-
-@FespNodeBuildersA()
+@FespNodeBuildersA(
+  builders: [
+    FespNodeBuilderField(
+      className: 'FespSliderBuilderData',
+      argsList: [
+        'BuildContext',
+        '\$FespSliderBuilderData',
+      ],
+      returnType: 'Slider',
+      classFields: [
+        FespNodeBuilderClassField(
+          type: 'int?',
+          name: 'divisions',
+        ),
+        FespNodeBuilderClassField(
+          type: 'double',
+          name: 'min',
+          defaultValue: '0',
+        ),
+        FespNodeBuilderClassField(
+          type: 'double',
+          name: 'max',
+          defaultValue: '1',
+        ),
+        FespNodeBuilderClassField(
+          type: 'double',
+          name: 'value',
+        ),
+        FespNodeBuilderClassField(
+          type: 'String',
+          name: 'label',
+        ),
+        FespNodeBuilderClassField(
+          type: 'Function(double value)?',
+          name: 'onChanged',
+        ),
+      ],
+    ),
+  ],
+  invalidTypes: ['\$FespSliderBuilderData'],
+)
 class FespSlideData {
   final int? divisions;
   final double min;
@@ -35,18 +55,8 @@ class FespSlideData {
   final double value;
   final Function(double value)? onChanged;
 
-  @FespNodeBuilderFieldA(
-    classFields: [
-      'divisions',
-      'min',
-      'max',
-      'value',
-      'label',
-      'onChanged',
-    ],
-  )
-  final Slider Function(BuildContext context, FespSliderBuilderData data)?
-      fespBuilder1;
+  final Slider Function(BuildContext context, $FespSliderBuilderData data)?
+      fespBuilder0;
 
   const FespSlideData({
     required this.value,
@@ -54,7 +64,7 @@ class FespSlideData {
     this.min = 0,
     this.max = 1,
     this.onChanged,
-    this.fespBuilder1,
+    this.fespBuilder0,
   });
 }
 
@@ -76,9 +86,9 @@ class FespSlider extends StatelessWidget {
         return Row(
           children: [
             Text(provider.getValue().toString()),
-            initData._$fespBuilder1(
+            initData._$fespBuilder0(
               context,
-              FespSliderBuilderData(
+              $FespSliderBuilderData(
                 divisions: initData.divisions,
                 min: initData.min,
                 max: initData.max,

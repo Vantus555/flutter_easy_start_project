@@ -3,99 +3,61 @@
 part of 'fesp_checkbox_list.dart';
 
 // **************************************************************************
-// CopyWithGenerator
+// FespNodeBuildersGenerator
 // **************************************************************************
 
-abstract class _$FespCheckboxListBuilderDataCWProxy {
-  FespCheckboxListBuilderData title(Widget title);
+class $FespCheckboxListBuilderData {
+  final Widget title;
+  final bool value;
+  final void Function(bool?) onChanged;
 
-  FespCheckboxListBuilderData value(bool value);
-
-  FespCheckboxListBuilderData onChanged(void Function(bool?)? onChanged);
-
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `FespCheckboxListBuilderData(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
-  ///
-  /// Usage
-  /// ```dart
-  /// FespCheckboxListBuilderData(...).copyWith(id: 12, name: "My name")
-  /// ````
-  FespCheckboxListBuilderData call({
+  const $FespCheckboxListBuilderData({
+    required this.title,
+    required this.value,
+    required this.onChanged,
+  });
+  $FespCheckboxListBuilderData $copyWith({
     Widget? title,
     bool? value,
     void Function(bool?)? onChanged,
-  });
-}
-
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfFespCheckboxListBuilderData.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfFespCheckboxListBuilderData.copyWith.fieldName(...)`
-class _$FespCheckboxListBuilderDataCWProxyImpl
-    implements _$FespCheckboxListBuilderDataCWProxy {
-  const _$FespCheckboxListBuilderDataCWProxyImpl(this._value);
-
-  final FespCheckboxListBuilderData _value;
-
-  @override
-  FespCheckboxListBuilderData title(Widget title) => this(title: title);
-
-  @override
-  FespCheckboxListBuilderData value(bool value) => this(value: value);
-
-  @override
-  FespCheckboxListBuilderData onChanged(void Function(bool?)? onChanged) =>
-      this(onChanged: onChanged);
-
-  @override
-
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `FespCheckboxListBuilderData(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
-  ///
-  /// Usage
-  /// ```dart
-  /// FespCheckboxListBuilderData(...).copyWith(id: 12, name: "My name")
-  /// ````
-  FespCheckboxListBuilderData call({
-    Object? title = const $CopyWithPlaceholder(),
-    Object? value = const $CopyWithPlaceholder(),
-    Object? onChanged = const $CopyWithPlaceholder(),
   }) {
-    return FespCheckboxListBuilderData(
-      title: title == const $CopyWithPlaceholder() || title == null
-          ? _value.title
-          // ignore: cast_nullable_to_non_nullable
-          : title as Widget,
-      value: value == const $CopyWithPlaceholder() || value == null
-          ? _value.value
-          // ignore: cast_nullable_to_non_nullable
-          : value as bool,
-      onChanged: onChanged == const $CopyWithPlaceholder()
-          ? _value.onChanged
-          // ignore: cast_nullable_to_non_nullable
-          : onChanged as void Function(bool?)?,
+    return $FespCheckboxListBuilderData(
+      title: title ?? this.title,
+      value: value ?? this.value,
+      onChanged: onChanged ?? this.onChanged,
     );
   }
 }
 
-extension $FespCheckboxListBuilderDataCopyWith on FespCheckboxListBuilderData {
-  /// Returns a callable class that can be used as follows: `instanceOfFespCheckboxListBuilderData.copyWith(...)` or like so:`instanceOfFespCheckboxListBuilderData.copyWith.fieldName(...)`.
-  // ignore: library_private_types_in_public_api
-  _$FespCheckboxListBuilderDataCWProxy get copyWith =>
-      _$FespCheckboxListBuilderDataCWProxyImpl(this);
-}
-
-// **************************************************************************
-// FespNodeBuildersGenerator
-// **************************************************************************
-
 extension on FespCheckboxList {
-  CheckboxListTile _$fespBuilder1(
-    FespCheckboxListBuilderData p0,
+  CheckboxListTile _$fespBuilder0(
+    BuildContext p0,
+    $FespCheckboxListBuilderData p1,
   ) {
-    return fespBuilder1 != null
-        ? fespBuilder1!(
+    return fespBuilder0 != null
+        ? fespBuilder0!(
             p0,
+            p1,
           )
         : CheckboxListTile(
-            title: p0.title,
-            value: p0.value,
-            onChanged: p0.onChanged,
+            title: p1.title,
+            value: p1.value,
+            onChanged: p1.onChanged,
           );
+  }
+
+  FespCheckboxList $copyWith({
+    dynamic Function(List<String>)? onChanged,
+    List<String>? currentValues,
+    Map<String, Widget>? values,
+    CheckboxListTile Function(BuildContext, $FespCheckboxListBuilderData)?
+        fespBuilder0,
+  }) {
+    return FespCheckboxList(
+      onChanged: onChanged ?? this.onChanged,
+      currentValues: currentValues ?? this.currentValues,
+      values: values ?? this.values,
+      fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
+    );
   }
 }

@@ -1,55 +1,13 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:flutter_easy_start_project_generator/fesp_element_visitor.dart.dart';
 import 'package:flutter_easy_start_project_generator/fesp_gen_helper.dart';
+import 'package:flutter_easy_start_project_generator/fesp_node_classes.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:build/build.dart';
 import 'package:analyzer/dart/constant/value.dart';
 
 Builder FespNodeBuilders(BuilderOptions options) =>
     SharedPartBuilder([FespNodeBuildersGenerator()], 'fespNodeBuilders');
-
-class FespNodeBuildersA {
-  const FespNodeBuildersA();
-}
-
-class FespNodeBuilderClassField {
-  final String type;
-  final String name;
-  final String defaultValue;
-
-  const FespNodeBuilderClassField({
-    required this.type,
-    required this.name,
-    this.defaultValue = '',
-  });
-
-  static Map<String, String> getClassFieldsAsJson(DartObject obj) {
-    return {
-      'type': obj.getField('type')!.toStringValue()!,
-      'name': obj.getField('name')!.toStringValue()!,
-      'defaultValue': obj.getField('defaultValue')!.toStringValue()!,
-    };
-  }
-}
-
-class FespNodeBuilderFieldA {
-  final String classNmae;
-  final List<FespNodeBuilderClassField> classFields;
-  final Map<String, String> customFields;
-  const FespNodeBuilderFieldA({
-    required this.classNmae,
-    this.classFields = const [],
-    this.customFields = const {},
-  });
-
-  static Map<String, String> getCustomFieldAsJson(
-      MapEntry<DartObject?, DartObject?> element) {
-    return {
-      'key': element.key!.toStringValue()!,
-      'value': element.value!.toStringValue()!,
-    };
-  }
-}
 
 class FespNodeBuildersGenerator
     extends GeneratorForAnnotation<FespNodeBuildersA> {
@@ -59,102 +17,135 @@ class FespNodeBuildersGenerator
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
-    final visitor = FespElementVisitor(
-      fieldChecker: const TypeChecker.fromRuntime(FespNodeBuilderFieldA),
-    );
+    final visitor = FespElementVisitor();
     element.visitChildren(visitor);
     final buffer = StringBuffer();
     final func = StringBuffer();
 
-    for (final e in visitor.fields) {
-      if (!e.name.startsWith('fespBuilder')) continue;
-      if (!e.isFunction) continue;
-      buffer.writeln(_genStructs(e));
+    final data = FespNodeBuildersA.obj(annotation.objectValue);
 
+    int index = 0;
+    for (final builder in data.builders) {
+      buffer.writeln(_genStructs(builder));
+
+      final returnType = builder.returnType;
+      final argsList = builder.argsList.join(',') + ',';
+      final name = 'fespBuilder$index';
+
+      // getWidget
       final f = FespGenHelper.createFunc(
-        returns: e.type,
-        name: e.name,
-        args: e.argsString,
+        returns: '$returnType',
+        name: name,
+        args: argsList,
+        private: true,
         code: """
           return
-            ${e.name} != null ?
-            ${e.name}!(${_getFirstArgs(e)})
-            : ${e.type} (${_getSecondArgs(e)});
+            $name != null ?
+            $name!(${_getFirstArgs(builder.argsList)})
+            : $returnType (${_getSecondArgs(builder)});
         """,
       );
       func.writeln(f);
+
+      index++;
     }
 
-    return """/*${buffer.toString() + FespGenHelper.createExtension(
+    // copyWith
+    int i = 0;
+    final copyWithFields = Map.fromEntries(
+      visitor.fields.map((element) {
+        String type = element.type;
+
+        if (data.invalidTypes.length > i && type.contains('InvalidType')) {
+          type = type.replaceFirst('InvalidType', data.invalidTypes[i]);
+          i++;
+        }
+
+        return MapEntry(
+          type,
+          element.name,
+        );
+      }),
+    );
+
+    final copyWith = FespGenHelper.createCopyWith(
+      className: '${visitor.className}',
+      fields: copyWithFields,
+    );
+
+    return """${buffer.toString() + FespGenHelper.createExtension(
           name: visitor.className,
-          code: func.toString(),
-        )}*/""";
+          code: func.toString() + copyWith,
+        )}""";
   }
 
-  String _genStructs(VisitorElement e) {
-    final anno = e.getAnnotationByName('FespNodeBuilderFieldA');
-
-    if (anno == null) return '';
-    final className = anno.getField('classNmae')!.toStringValue();
-    final argList = anno.getField('classFields')!.toListValue();
+  String _genStructs(FespNodeBuilderField builder) {
     final List<String> fields = [];
     final List<String> constructorArgs = [];
 
-    for (final arg in argList!) {
-      final data = FespNodeBuilderClassField.getClassFieldsAsJson(arg);
-      fields.add('final ${data['type']} ${data['name']}');
+    for (final arg in builder.classFields) {
+      fields.add('final ${arg.type} ${arg.name}');
 
       constructorArgs.add(
         FespGenHelper.getConstructorArgs(
-          name: data['name']!,
-          isRequired: data['defaultValue'] == '',
-          defaultValue: data['defaultValue']!,
+          name: arg.name,
+          isRequired:
+              arg.defaultValue == '' && arg.type[arg.type.length - 1] != '?',
+          defaultValue: arg.defaultValue,
         ),
       );
     }
 
+    // copyWith
+    final copyWithFields = Map.fromEntries(
+      builder.classFields.map((element) {
+        return MapEntry(element.type, element.name);
+      }),
+    );
+
+    final copyWith = FespGenHelper.createCopyWith(
+      className: '\$${builder.className}',
+      fields: copyWithFields,
+    );
+
     final struct = FespGenHelper.createClass(
-      name: className!,
+      name: builder.className,
       fields: fields,
       constructorArgs: constructorArgs,
       isConstConstructor: true,
+      code: copyWith.toString(),
     );
 
     return struct;
   }
 
-  String _getFirstArgs(VisitorElement e) {
+  String _getFirstArgs(List<String> argsList) {
     String res = '';
-    for (var i = 0; i < e.argsList.length; i++) {
+
+    for (var i = 0; i < argsList.length; i++) {
       res += 'p$i,';
     }
 
     return res;
   }
 
-  String _getSecondArgs(VisitorElement e) {
+  String _getSecondArgs(FespNodeBuilderField builder) {
     String res = '';
 
-    final length = e.argsList.length - 1;
-    final anno = e.getAnnotationByName('FespNodeBuilderFieldA');
+    final length = builder.argsList.length - 1;
 
-    if (anno == null) return res;
-
-    final classField = anno.getField('classFields')!.toListValue()!;
-    final customFields = anno.getField('customFields')!.toMapValue()!;
+    final customFields = builder.customFields;
     final customFieldsString = <String>[];
 
     for (var element in customFields.entries) {
-      final data = FespNodeBuilderFieldA.getCustomFieldAsJson(element);
-      res += '${data['key']}: ${data['value']},';
-      customFieldsString.add(data['key']!);
+      res += '${element.key}: ${element.value},';
+      customFieldsString.add(element.key);
     }
 
-    for (var element in classField) {
-      final data = FespNodeBuilderClassField.getClassFieldsAsJson(element);
-
-      if (!customFieldsString.contains(data['name'])) {
-        res += '${data['name']}: p$length.${data['name']},';
+    for (var element in builder.classFields) {
+      final name = element.name;
+      if (!customFieldsString.contains(name)) {
+        res += '$name: p$length.$name,';
       }
     }
 

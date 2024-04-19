@@ -1,38 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_start_project/view_models/fesp_value_change_provider.dart';
+import 'package:flutter_easy_start_project_generator/fesp_node_classes.dart';
 import 'package:provider/provider.dart';
-// ignore: depend_on_referenced_packages
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:flutter_easy_start_project_generator/fesp_node_builders.dart';
 
 part 'fesp_switch.g.dart';
 
-@CopyWith()
-class FespSwitchBuilderData {
-  final bool value;
-  final void Function(bool value)? onChanged;
-  final void Function(bool value)? onFocusChange;
-
-  const FespSwitchBuilderData({
-    this.value = false,
-    this.onChanged,
-    this.onFocusChange,
-  });
-}
-
-@FespNodeBuildersA()
+@FespNodeBuildersA(builders: [
+  FespNodeBuilderField(
+    className: 'FespSwitchBuilderData',
+    argsList: [
+      'BuildContext',
+      '\$FespSwitchBuilderData',
+    ],
+    returnType: 'Switch',
+    classFields: [
+      FespNodeBuilderClassField(
+        type: 'bool',
+        name: 'value',
+        defaultValue: 'false',
+      ),
+      FespNodeBuilderClassField(
+        type: 'void Function(bool value)?',
+        name: 'onChanged',
+      ),
+      FespNodeBuilderClassField(
+        type: 'void Function(bool value)?',
+        name: 'onFocusChange',
+      ),
+    ],
+  ),
+], invalidTypes: [
+  '\$FespSwitchBuilderData',
+  '\$FespSwitchBuilderData',
+])
 class FespSwitchData {
-  final FespSwitchBuilderData initData;
-  @FespNodeBuilderFieldA(classFields: [
-    'value',
-    'onChanged',
-    'onFocusChange',
-  ])
-  final Switch Function(FespSwitchBuilderData data)? fespBuilder1;
+  final $FespSwitchBuilderData initData;
+  final Switch Function(BuildContext context, $FespSwitchBuilderData data)?
+      fespBuilder0;
 
   const FespSwitchData({
-    this.initData = const FespSwitchBuilderData(),
-    this.fespBuilder1,
+    this.initData = const $FespSwitchBuilderData(),
+    this.fespBuilder0,
   });
 }
 
@@ -52,8 +60,9 @@ class FespSwitch extends StatelessWidget {
       builder: (context, child) {
         final provider = context.watch<FespValueChangeProvider<bool>>();
 
-        return data._$fespBuilder1(
-          FespSwitchBuilderData(
+        return data._$fespBuilder0(
+          context,
+          $FespSwitchBuilderData(
             value: provider.value,
             onChanged: (value) {
               provider.setValue(value);

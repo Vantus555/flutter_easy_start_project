@@ -13,3 +13,10 @@ builders:
     auto_apply: dependents
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]
+  FespJsonBuilder:
+    import: 'package:flutter_easy_start_project_generator/fesp_json_bulder.dart'
+    builder_factories: ['FespJsonBuilder']
+    build_extensions: {".dart": [".g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]

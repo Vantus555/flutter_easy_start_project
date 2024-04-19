@@ -11,8 +11,9 @@ class FespGenHelper {
     required String name,
     String args = '',
     required String code,
+    bool private = false,
   }) {
-    return '$returns _\$$name($args) {$code}';
+    return '$returns ${private ? '_' : ''}\$$name($args) {$code}';
   }
 
   static String createClass({
@@ -24,8 +25,9 @@ class FespGenHelper {
     String constructorCode = '',
     bool isConstConstructor = false,
     String code = '',
+    bool private = false,
   }) {
-    final className = '\$$name';
+    final className = '${private ? '_' : ''}\$$name';
 
     return """
 $typeClass $className $modifyers {
@@ -48,5 +50,39 @@ $typeClass $className $modifyers {
     }
     res += 'this.$name ${defaultValue == '' ? '' : '= $defaultValue'}';
     return res;
+  }
+
+  static String createCopyWith({
+    required String className,
+    required Map<String, String> fields,
+  }) {
+    final args = StringBuffer();
+    args.write('{');
+    for (var element in fields.entries) {
+      final key = element.key;
+      args.write(element.key);
+      if (key[element.key.length - 1] != '?') args.write('?');
+      args.write(' ');
+      args.write(element.value + ',');
+    }
+    args.write('}');
+
+    final code = StringBuffer();
+    code.write('return $className(');
+
+    for (var element in fields.entries) {
+      final value = element.value;
+      code.write(value);
+      code.write(':');
+      code.write('$value ?? this.$value,');
+    }
+    code.write(');');
+
+    return createFunc(
+      returns: className,
+      name: 'copyWith',
+      args: args.toString(),
+      code: code.toString(),
+    );
   }
 }

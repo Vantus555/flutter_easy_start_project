@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy_start_project/themes/fesp_themes_consts.dart';
+import 'package:flutter_easy_start_project_generator/fesp_node_classes.dart';
 // ignore: depend_on_referenced_packages
 import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:flutter_easy_start_project_generator/fesp_node_builders.dart';
 
 part 'fesp_text_field.g.dart';
 
@@ -12,96 +12,105 @@ final fespPositiveNumberFormat =
 final fespNumberFormat =
     FilteringTextInputFormatter.allow(RegExp(r'^\-?\d*\.?\d*'));
 
-@CopyWith()
-class FespTextFieldFocusBuilderData {
-  final Function(bool)? onFocusChange;
-  final FespTextFieldFocusNodeBuilderData focusNodeData;
-  final FespTextFieldBuilderData childData;
-
-  const FespTextFieldFocusBuilderData({
-    required this.onFocusChange,
-    required this.focusNodeData,
-    required this.childData,
-  });
-}
-
-@CopyWith()
-class FespTextFieldFocusNodeBuilderData {
-  final bool canRequestFocus;
-
-  const FespTextFieldFocusNodeBuilderData({
-    required this.canRequestFocus,
-  });
-}
-
-@CopyWith()
-class FespTextFieldBuilderData {
-  final TextEditingController controller;
-  final bool obscureText;
-  final List<TextInputFormatter>? inputFormatters;
-  final InputDecoration decoration;
-
-  const FespTextFieldBuilderData({
-    required this.controller,
-    required this.obscureText,
-    required this.inputFormatters,
-    required this.decoration,
-  });
-}
-
-@CopyWith()
-@FespNodeBuildersA()
+@FespNodeBuildersA(
+  builders: [
+    FespNodeBuilderField(
+      className: 'FespTextFieldFocusBuilderData',
+      argsList: [
+        'BuildContext',
+        '\$FespTextFieldFocusBuilderData',
+      ],
+      returnType: 'Focus',
+      classFields: [
+        FespNodeBuilderClassField(
+          type: 'Function(bool)?',
+          name: 'onFocusChange',
+        ),
+        FespNodeBuilderClassField(
+          type: '\$FespTextFieldFocusNodeBuilderData',
+          name: 'focusNode',
+        ),
+        FespNodeBuilderClassField(
+          type: '\$FespTextFieldBuilderData',
+          name: 'child',
+        )
+      ],
+      customFields: {
+        'focusNode': '_\$fespBuilder1(p0, p1.focusNode)',
+        'child': '_\$fespBuilder2(p0, p1.child)',
+      },
+    ),
+    FespNodeBuilderField(
+      className: 'FespTextFieldFocusNodeBuilderData',
+      argsList: [
+        'BuildContext',
+        '\$FespTextFieldFocusNodeBuilderData',
+      ],
+      returnType: 'FocusNode',
+      classFields: [
+        FespNodeBuilderClassField(type: 'bool', name: 'canRequestFocus')
+      ],
+    ),
+    FespNodeBuilderField(
+      className: 'FespTextFieldBuilderData',
+      argsList: [
+        'BuildContext',
+        '\$FespTextFieldBuilderData',
+      ],
+      returnType: 'TextFormField',
+      classFields: [
+        FespNodeBuilderClassField(
+          type: 'TextEditingController',
+          name: 'controller',
+        ),
+        FespNodeBuilderClassField(
+          type: 'bool',
+          name: 'obscureText',
+        ),
+        FespNodeBuilderClassField(
+          type: 'List<TextInputFormatter>?',
+          name: 'inputFormatters',
+        ),
+        FespNodeBuilderClassField(
+          type: 'InputDecoration',
+          name: 'decoration',
+        ),
+      ],
+    )
+  ],
+  invalidTypes: [
+    '\$FespTextFieldFocusBuilderData',
+    '\$FespTextFieldFocusNodeBuilderData',
+    '\$FespTextFieldBuilderData',
+  ],
+)
 class FespTextFieldData {
   final String labelText;
   final String initialValue;
   final Function(bool isFocus, String value)? onFocusChange;
 
-  @FespNodeBuilderFieldA(
-    classFields: [
-      'onFocusChange',
-    ],
-    customFields: [
-      'focusNode: _\$fespBuilder2(p0, p1.focusNodeData)',
-      'child: _\$fespBuilder3(p0, p1.childData)',
-    ],
-  )
   final Focus Function(
     BuildContext context,
-    FespTextFieldFocusBuilderData data,
-  )? fespBuilder1;
+    $FespTextFieldFocusBuilderData data,
+  )? fespBuilder0;
 
-  //
-  @FespNodeBuilderFieldA(
-    classFields: [
-      'canRequestFocus',
-    ],
-  )
   final FocusNode Function(
     BuildContext context,
-    FespTextFieldFocusNodeBuilderData data,
-  )? fespBuilder2;
+    $FespTextFieldFocusNodeBuilderData data,
+  )? fespBuilder1;
 
-  //
-  @FespNodeBuilderFieldA(
-    classFields: [
-      'controller',
-      'obscureText',
-      'inputFormatters',
-      'decoration',
-    ],
-  )
   final TextFormField Function(
     BuildContext context,
-    FespTextFieldBuilderData data,
-  )? fespBuilder3;
+    $FespTextFieldBuilderData data,
+  )? fespBuilder2;
 
   const FespTextFieldData({
     this.labelText = '',
     this.initialValue = '',
     this.onFocusChange,
+    this.fespBuilder0,
     this.fespBuilder1,
     this.fespBuilder2,
-    this.fespBuilder3,
   });
 }
 
@@ -117,11 +126,11 @@ class FespTextField extends StatelessWidget {
     Key? key,
     final FespTextFieldData data = const FespTextFieldData(),
   }) {
-    final newData = data.copyWith.fespBuilder3(
-      (context, newData) {
-        return data._$fespBuilder3(
+    final newData = data.$copyWith(
+      fespBuilder2: (context, newData) {
+        return data._$fespBuilder2(
           context,
-          FespTextFieldBuilderData(
+          $FespTextFieldBuilderData(
             controller: newData.controller,
             obscureText: false,
             inputFormatters: [fespPositiveNumberFormat],
@@ -141,11 +150,11 @@ class FespTextField extends StatelessWidget {
     Key? key,
     final FespTextFieldData data = const FespTextFieldData(),
   }) {
-    final newData = data.copyWith.fespBuilder3(
-      (context, newData) {
-        return data._$fespBuilder3(
+    final newData = data.$copyWith(
+      fespBuilder2: (context, newData) {
+        return data._$fespBuilder2(
           context,
-          FespTextFieldBuilderData(
+          $FespTextFieldBuilderData(
             controller: newData.controller,
             obscureText: false,
             inputFormatters: [fespNumberFormat],
@@ -165,11 +174,11 @@ class FespTextField extends StatelessWidget {
     Key? key,
     final FespTextFieldData data = const FespTextFieldData(),
   }) {
-    final newData = data.copyWith.fespBuilder3(
-      (context, newData) {
-        return data._$fespBuilder3(
+    final newData = data.$copyWith(
+      fespBuilder2: (context, newData) {
+        return data._$fespBuilder2(
           context,
-          FespTextFieldBuilderData(
+          $FespTextFieldBuilderData(
             controller: newData.controller,
             obscureText: true,
             inputFormatters: [],
@@ -193,14 +202,14 @@ class FespTextField extends StatelessWidget {
         ? data.onFocusChange!(value, controller.text)
         : null;
 
-    return data._$fespBuilder1(
+    return data._$fespBuilder0(
       context,
-      FespTextFieldFocusBuilderData(
+      $FespTextFieldFocusBuilderData(
         onFocusChange: focusChnage,
-        focusNodeData: const FespTextFieldFocusNodeBuilderData(
+        focusNode: const $FespTextFieldFocusNodeBuilderData(
           canRequestFocus: false,
         ),
-        childData: FespTextFieldBuilderData(
+        child: $FespTextFieldBuilderData(
           controller: controller,
           obscureText: false,
           inputFormatters: [],

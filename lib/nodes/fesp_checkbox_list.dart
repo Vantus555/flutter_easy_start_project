@@ -1,83 +1,81 @@
-// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-
 import 'package:flutter/material.dart';
-import 'package:flutter_easy_start_project_generator/fesp_node_builders.dart';
+import 'package:flutter_easy_start_project/view_models/fesp_value_change_provider.dart';
+import 'package:flutter_easy_start_project_generator/fesp_node_classes.dart';
 import 'package:provider/provider.dart';
-// ignore: unused_import
-import 'package:copy_with_extension/copy_with_extension.dart';
 
 part 'fesp_checkbox_list.g.dart';
 
-@CopyWith()
-class FespCheckboxListBuilderData {
-  final Widget title;
-  final bool value;
-  final void Function(bool?)? onChanged;
+typedef ProviderType = FespValueChangeProvider<List<String>>;
 
-  const FespCheckboxListBuilderData({
-    required this.title,
-    required this.value,
-    this.onChanged,
-  });
-}
-
-class _FespCheckboxListProvider extends ChangeNotifier {
-  List<String> checkedList = [];
-
-  _FespCheckboxListProvider(List<String>? checked) {
-    checkedList = checked ?? [];
-  }
-}
-
-@FespNodeBuildersA()
+@FespNodeBuildersA(
+  builders: [
+    FespNodeBuilderField(
+      className: 'FespCheckboxListBuilderData',
+      returnType: 'CheckboxListTile',
+      classFields: [
+        FespNodeBuilderClassField(
+          type: 'Widget',
+          name: 'title',
+        ),
+        FespNodeBuilderClassField(
+          type: 'bool',
+          name: 'value',
+        ),
+        FespNodeBuilderClassField(
+          type: 'void Function(bool?)',
+          name: 'onChanged',
+        ),
+      ],
+    ),
+  ],
+  invalidTypes: ['\$FespCheckboxListBuilderData'],
+)
 class FespCheckboxList extends StatelessWidget {
   final Function(List<String> values)? onChanged;
-  final List<String>? currentValues;
+  final List<String> currentValues;
   final Map<String, Widget> values;
 
-  @FespNodeBuilderFieldA(classFields: [
-    'title',
-    'value',
-    'onChanged',
-  ])
-  final CheckboxListTile Function(FespCheckboxListBuilderData data)?
-      fespBuilder1;
+  final CheckboxListTile Function(
+    BuildContext context,
+    $FespCheckboxListBuilderData data,
+  )? fespBuilder0;
 
   const FespCheckboxList({
     super.key,
     this.onChanged,
-    this.currentValues,
-    this.fespBuilder1,
+    this.currentValues = const [],
+    this.fespBuilder0,
     required this.values,
   });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => _FespCheckboxListProvider(currentValues),
+      create: (context) => ProviderType(value: currentValues),
       builder: (context, child) {
         List<Widget> children = [];
-        final provider = context.watch<_FespCheckboxListProvider>();
+        final provider = context.watch<ProviderType>();
 
         values.forEach((key, value) {
           onLocalChanged(value) {
             if (value!) {
-              provider.checkedList.add(key);
+              provider.value.add(key);
               provider.notifyListeners();
             } else {
-              provider.checkedList.remove(key);
+              provider.value.remove(key);
               provider.notifyListeners();
             }
             if (onChanged != null) {
-              onChanged!(provider.checkedList);
+              onChanged!(provider.value);
             }
           }
 
-          final val = provider.checkedList.contains(key);
+          final val = provider.value.contains(key);
 
           children.add(
-            _$fespBuilder1(
-              FespCheckboxListBuilderData(
+            _$fespBuilder0(
+              context,
+              $FespCheckboxListBuilderData(
                 title: value,
                 value: val,
                 onChanged: onLocalChanged,
