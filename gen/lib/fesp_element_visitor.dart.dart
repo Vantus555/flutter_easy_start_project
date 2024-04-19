@@ -19,6 +19,17 @@ class VisitorElement {
     this.isFunction = false,
     this.annotations = const [],
   });
+
+  DartObject? getAnnotationByName(String name) {
+    final res = annotations
+        .where(
+          (element) => element.type.toString() == name,
+        )
+        .toList();
+
+    if (res.length > 0) return res[0];
+    return null;
+  }
 }
 
 class FespElementVisitor extends SimpleElementVisitor<void> {
@@ -40,13 +51,17 @@ class FespElementVisitor extends SimpleElementVisitor<void> {
   void visitFieldElement(FieldElement element) {
     final value = element.type.toString().replaceFirst('*', '');
 
+    print(value);
     if (value.contains('Function')) {
       List<String> splitter = value.split('Function');
       String type = splitter[0];
-      String argsString = splitter[1].replaceAll('(', '').replaceAll(')', '');
+      String argsString = splitter[1];
 
-      if (argsString.substring(argsString.length - 1) == '?')
-        argsString = argsString.substring(0, argsString.length - 1);
+      if (argsString.substring(argsString.length - 2) == ')?')
+        argsString = argsString
+            .substring(0, argsString.length - 2)
+            .replaceAll('(', '')
+            .replaceAll(')', '');
 
       List<String> argsList = [];
 

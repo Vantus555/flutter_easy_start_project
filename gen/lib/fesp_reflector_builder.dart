@@ -30,14 +30,14 @@ class FespReflectorGenerator extends GeneratorForAnnotation<FespReflectorA> {
       return res + '];';
     }
 
-    final func = FespGenHelper.func(
+    final func = FespGenHelper.createFunc(
       returns: 'static List<String>',
       name: 'getFields',
       code: code(),
     );
 
     buffer.writeln(func);
-    return FespGenHelper.extensionOn(
+    return FespGenHelper.createExtension(
       name: visitor.className,
       code: buffer.toString(),
     );
