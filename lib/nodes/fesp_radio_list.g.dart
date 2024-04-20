@@ -6,7 +6,7 @@ part of 'fesp_radio_list.dart';
 // FespNodeBuildersGenerator
 // **************************************************************************
 
-class $FespRadioListData {
+class $FespRadioListBuilderData {
   final Object value;
   final Object? groupValue;
   final void Function(Object?)? onChanged;
@@ -17,7 +17,7 @@ class $FespRadioListData {
   final VisualDensity? visualDensity;
   final ShapeBorder? shape;
 
-  const $FespRadioListData({
+  const $FespRadioListBuilderData({
     required this.value,
     this.groupValue,
     this.onChanged,
@@ -28,7 +28,7 @@ class $FespRadioListData {
     this.visualDensity,
     this.shape,
   });
-  $FespRadioListData $copyWith({
+  $FespRadioListBuilderData $copyWith({
     Object? value,
     Object? groupValue,
     void Function(Object?)? onChanged,
@@ -39,7 +39,7 @@ class $FespRadioListData {
     VisualDensity? visualDensity,
     ShapeBorder? shape,
   }) {
-    return $FespRadioListData(
+    return $FespRadioListBuilderData(
       value: value ?? this.value,
       groupValue: groupValue ?? this.groupValue,
       onChanged: onChanged ?? this.onChanged,
@@ -53,18 +53,18 @@ class $FespRadioListData {
   }
 }
 
-class _$FespRadioListData {
+class _$FespRadioListBuilderData {
   final RadioListTile Function(
     BuildContext p0,
-    $FespRadioListData p1,
+    $FespRadioListBuilderData p1,
   )? fespBuilder0;
 
-  const _$FespRadioListData({
+  const _$FespRadioListBuilderData({
     this.fespBuilder0,
   });
   RadioListTile _$fespBuilder0(
     BuildContext p0,
-    $FespRadioListData p1,
+    $FespRadioListBuilderData p1,
   ) {
     return fespBuilder0 != null
         ? fespBuilder0!(
@@ -85,11 +85,11 @@ class _$FespRadioListData {
   }
 }
 
-extension on FespRadioListData {
-  FespRadioListData $copyWith({
+extension on FespRadioListBuilderData {
+  FespRadioListBuilderData $copyWith({
     final RadioListTile Function(
       BuildContext p0,
-      $FespRadioListData p1,
+      $FespRadioListBuilderData p1,
     )? fespBuilder0,
     Map<Object, Widget>? values,
     Object? currentValue,
@@ -97,7 +97,7 @@ extension on FespRadioListData {
     Widget? subtitle,
     String? resetTitle,
   }) {
-    return FespRadioListData(
+    return FespRadioListBuilderData(
       fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
       values: values ?? this.values,
       currentValue: currentValue ?? this.currentValue,

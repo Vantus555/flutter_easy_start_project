@@ -6,16 +6,16 @@ part of 'fesp_floating_action_button_container.dart';
 // FespNodeBuildersGenerator
 // **************************************************************************
 
-class $FespFloatingContainerData {
+class $FespFloatingContainerBuilderData {
   final Widget child;
 
-  const $FespFloatingContainerData({
+  const $FespFloatingContainerBuilderData({
     required this.child,
   });
-  $FespFloatingContainerData $copyWith({
+  $FespFloatingContainerBuilderData $copyWith({
     Widget? child,
   }) {
-    return $FespFloatingContainerData(
+    return $FespFloatingContainerBuilderData(
       child: child ?? this.child,
     );
   }
@@ -24,7 +24,7 @@ class $FespFloatingContainerData {
 class _$FespFloatingActionButtonContainerData {
   final FespContainer Function(
     BuildContext p0,
-    $FespFloatingContainerData p1,
+    $FespFloatingContainerBuilderData p1,
   )? fespBuilder0;
 
   const _$FespFloatingActionButtonContainerData({
@@ -32,7 +32,7 @@ class _$FespFloatingActionButtonContainerData {
   });
   FespContainer _$fespBuilder0(
     BuildContext p0,
-    $FespFloatingContainerData p1,
+    $FespFloatingContainerBuilderData p1,
   ) {
     return fespBuilder0 != null
         ? fespBuilder0!(
@@ -49,7 +49,7 @@ extension on FespFloatingActionButtonContainerData {
   FespFloatingActionButtonContainerData $copyWith({
     final FespContainer Function(
       BuildContext p0,
-      $FespFloatingContainerData p1,
+      $FespFloatingContainerBuilderData p1,
     )? fespBuilder0,
     Widget? child,
     Widget? action,

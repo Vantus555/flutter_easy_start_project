@@ -11,7 +11,7 @@ typedef _providerType = FespValueChangeProvider<Object?>;
 @FespNodeBuildersA(
   builders: [
     FespNodeBuilderField(
-      className: 'FespRadioListData',
+      className: 'FespRadioListBuilderData',
       returnType: 'RadioListTile',
       classFields: [
         FespNodeBuilderClassField(
@@ -54,14 +54,14 @@ typedef _providerType = FespValueChangeProvider<Object?>;
     ),
   ],
 )
-class FespRadioListData extends _$FespRadioListData {
+class FespRadioListBuilderData extends _$FespRadioListBuilderData {
   final Map<Object, Widget> values;
   final Object? currentValue;
   final Function(Object?)? onChanged;
   final Widget? subtitle;
   final String resetTitle;
 
-  FespRadioListData({
+  FespRadioListBuilderData({
     required this.values,
     required this.currentValue,
     this.onChanged,
@@ -72,7 +72,7 @@ class FespRadioListData extends _$FespRadioListData {
 }
 
 class MyAppRadioList extends StatelessWidget {
-  final FespRadioListData data;
+  final FespRadioListBuilderData data;
   const MyAppRadioList({
     super.key,
     required this.data,
@@ -93,7 +93,7 @@ class MyAppRadioList extends StatelessWidget {
             children.add(
               data._$fespBuilder0(
                 context,
-                $FespRadioListData(
+                $FespRadioListBuilderData(
                   value: key,
                   selected: key == provider.value,
                   groupValue: provider.value,

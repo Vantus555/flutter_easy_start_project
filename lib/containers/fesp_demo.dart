@@ -9,10 +9,7 @@ class FespDemo extends StatelessWidget {
     return Column(
       children: [
         TextFormField(),
-        const FespCheckboxList(values: {
-          '1': Text('1'),
-          '2': Text('2'),
-        })
+        const Text('Demo'),
       ],
     );
   }

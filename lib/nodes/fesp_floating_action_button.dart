@@ -6,7 +6,7 @@ part 'fesp_floating_action_button.g.dart';
 @FespNodeBuildersA(
   builders: [
     FespNodeBuilderField(
-      className: 'FespFloatingActionButtonUsedData',
+      className: 'FespFloatingActionButtonBuilderData',
       returnType: 'FloatingActionButton',
       classFields: [
         FespNodeBuilderClassField(
@@ -28,6 +28,7 @@ part 'fesp_floating_action_button.g.dart';
       ],
     ),
   ],
+  invalidTypes: ['EdgeInsetsGeometry'],
 )
 class FespFloatingActionButtonData extends _$FespFloatingActionButtonData {
   final IconData icon;
@@ -58,7 +59,7 @@ class FespFloatingActionButton extends StatelessWidget {
       padding: data.padding,
       child: data._$fespBuilder0(
         context,
-        $FespFloatingActionButtonUsedData(
+        $FespFloatingActionButtonBuilderData(
           mini: data.mini,
           onPressed: data.onPressed,
           shape: const CircleBorder(),

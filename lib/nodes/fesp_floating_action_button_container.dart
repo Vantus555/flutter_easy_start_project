@@ -7,7 +7,7 @@ part 'fesp_floating_action_button_container.g.dart';
 @FespNodeBuildersA(
   builders: [
     FespNodeBuilderField(
-      className: 'FespFloatingContainerData',
+      className: 'FespFloatingContainerBuilderData',
       returnType: 'FespContainer',
       classFields: [
         FespNodeBuilderClassField(
@@ -43,7 +43,7 @@ class FespFloatingActionButtonContainer extends StatelessWidget {
       children: [
         data._$fespBuilder0(
           context,
-          $FespFloatingContainerData(
+          $FespFloatingContainerBuilderData(
             child: data.child,
           ),
         ),

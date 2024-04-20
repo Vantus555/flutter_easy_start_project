@@ -63,9 +63,11 @@ class FespCheckboxList extends StatelessWidget {
           onLocalChanged(value) {
             if (value!) {
               provider.value.add(key);
+              // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
               provider.notifyListeners();
             } else {
               provider.value.remove(key);
+              // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
               provider.notifyListeners();
             }
             if (data.onChanged != null) {
