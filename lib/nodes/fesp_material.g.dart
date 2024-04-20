@@ -7,33 +7,41 @@ part of 'fesp_material.dart';
 // **************************************************************************
 
 class $FespMaterialBuilderData {
+  final Widget child;
   final BorderRadius borderRadius;
   final double elevation;
   final Color shadowColor;
-  final Widget child;
 
   const $FespMaterialBuilderData({
+    required this.child,
     required this.borderRadius,
     required this.elevation,
     required this.shadowColor,
-    required this.child,
   });
   $FespMaterialBuilderData $copyWith({
+    Widget? child,
     BorderRadius? borderRadius,
     double? elevation,
     Color? shadowColor,
-    Widget? child,
   }) {
     return $FespMaterialBuilderData(
+      child: child ?? this.child,
       borderRadius: borderRadius ?? this.borderRadius,
       elevation: elevation ?? this.elevation,
       shadowColor: shadowColor ?? this.shadowColor,
-      child: child ?? this.child,
     );
   }
 }
 
-extension on FespMaterial {
+class _$FespMaterialData {
+  final Material Function(
+    BuildContext p0,
+    $FespMaterialBuilderData p1,
+  )? fespBuilder0;
+
+  const _$FespMaterialData({
+    this.fespBuilder0,
+  });
   Material _$fespBuilder0(
     BuildContext p0,
     $FespMaterialBuilderData p1,
@@ -44,20 +52,25 @@ extension on FespMaterial {
             p1,
           )
         : Material(
-            borderRadius: p1.borderRadius,
-            elevation: p1.elevation,
             shadowColor: p1.shadowColor,
+            elevation: p1.elevation,
+            borderRadius: p1.borderRadius,
             child: p1.child,
           );
   }
+}
 
-  FespMaterial $copyWith({
+extension on FespMaterialData {
+  FespMaterialData $copyWith({
+    final Material Function(
+      BuildContext p0,
+      $FespMaterialBuilderData p1,
+    )? fespBuilder0,
     Widget? child,
-    Material Function(BuildContext, $FespMaterialBuilderData)? fespBuilder0,
   }) {
-    return FespMaterial(
-      child: child ?? this.child,
+    return FespMaterialData(
       fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
+      child: child ?? this.child,
     );
   }
 }

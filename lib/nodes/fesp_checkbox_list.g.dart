@@ -29,7 +29,15 @@ class $FespCheckboxListBuilderData {
   }
 }
 
-extension on FespCheckboxList {
+class _$FespCheckboxListData {
+  final CheckboxListTile Function(
+    BuildContext p0,
+    $FespCheckboxListBuilderData p1,
+  )? fespBuilder0;
+
+  const _$FespCheckboxListData({
+    this.fespBuilder0,
+  });
   CheckboxListTile _$fespBuilder0(
     BuildContext p0,
     $FespCheckboxListBuilderData p1,
@@ -40,24 +48,28 @@ extension on FespCheckboxList {
             p1,
           )
         : CheckboxListTile(
-            title: p1.title,
-            value: p1.value,
             onChanged: p1.onChanged,
+            value: p1.value,
+            title: p1.title,
           );
   }
+}
 
-  FespCheckboxList $copyWith({
+extension on FespCheckboxListData {
+  FespCheckboxListData $copyWith({
+    final CheckboxListTile Function(
+      BuildContext p0,
+      $FespCheckboxListBuilderData p1,
+    )? fespBuilder0,
     dynamic Function(List<String>)? onChanged,
     List<String>? currentValues,
     Map<String, Widget>? values,
-    CheckboxListTile Function(BuildContext, $FespCheckboxListBuilderData)?
-        fespBuilder0,
   }) {
-    return FespCheckboxList(
+    return FespCheckboxListData(
+      fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
       onChanged: onChanged ?? this.onChanged,
       currentValues: currentValues ?? this.currentValues,
       values: values ?? this.values,
-      fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
     );
   }
 }

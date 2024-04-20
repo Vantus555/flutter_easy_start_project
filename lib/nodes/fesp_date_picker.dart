@@ -1,79 +1,80 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_easy_start_project/nodes/fesp_text_field.dart';
-// import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easy_start_project/nodes/fesp_text_field.dart';
+import 'package:flutter_easy_start_project/view_models/fesp_value_change_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-// class FespDatePicker extends StatefulWidget {
-//   final int positiveYears;
-//   final int negativeYears;
-//   final Function(DateTime? date)? onChange;
-//   final DateTime? initialValue;
-//   final bool readOnly;
-//   final String labelText;
+typedef _providerType = FespValueChangeProvider<DateTime?>;
 
-//   const FespDatePicker({
-//     super.key,
-//     this.negativeYears = 100,
-//     this.positiveYears = 100,
-//     this.readOnly = false,
-//     this.labelText = 'Дата',
-//     this.onChange,
-//     this.initialValue,
-//   });
+class FespDatePicker extends StatelessWidget {
+  final DateTime initialValue;
+  final String dateFormat;
+  final int positiveYears;
+  final int negativeYears;
+  final Function(DateTime? date)? onChange;
+  final bool readOnly;
+  final String labelText;
 
-//   @override
-//   State<FespDatePicker> createState() => _FespDatePickerState();
-// }
+  const FespDatePicker({
+    super.key,
+    this.negativeYears = 100,
+    this.positiveYears = 100,
+    this.readOnly = false,
+    this.labelText = 'Дата',
+    this.onChange,
+    this.dateFormat = 'dd.M.yyyy',
+    required this.initialValue,
+  });
 
-// class _FespDatePickerState extends State<FespDatePicker> {
-//   DateTime? _currentValue;
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => _providerType(
+        value: initialValue,
+      ),
+      builder: (context, child) {
+        final provider = context.watch<_providerType>();
 
-//   @override
-//   void initState() {
-//     _currentValue = widget.initialValue;
-//     super.initState();
-//   }
+        return FespTextField(
+          data: FespTextFieldData(
+            initialValue: provider.value != null
+                ? DateFormat(dateFormat).format(provider.value!)
+                : '',
+            labelText: labelText,
+            fespBuilder2: (controller, data) {
+              return TextFormField(
+                controller: data.controller,
+                obscureText: data.obscureText,
+                inputFormatters: data.inputFormatters,
+                readOnly: readOnly,
+                onTap: () {
+                  if (!readOnly) {
+                    final initialDate = DateTime.now();
+                    final firstDate = initialDate.subtract(Duration(
+                      days: 365 * negativeYears,
+                    ));
+                    final lastDate = initialDate.add(Duration(
+                      days: 365 * positiveYears,
+                    ));
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return FespTextField(
-//       data: FespTextFieldData(
-//         initialValue: _currentValue != null
-//             ? DateFormat('dd.M.yyyy').format(_currentValue!)
-//             : '',
-//         labelText: widget.labelText,
-//         builder3: (controller, obscureText, inputFormatters) {
-//           return TextFormField(
-//             controller: controller,
-//             obscureText: obscureText,
-//             inputFormatters: inputFormatters,
-//             readOnly: widget.readOnly,
-//             onTap: () {
-//               if (!widget.readOnly) {
-//                 final initialDate = DateTime.now();
-//                 final firstDate = initialDate.subtract(Duration(
-//                   days: 365 * widget.negativeYears,
-//                 ));
-//                 final lastDate = initialDate.add(Duration(
-//                   days: 365 * widget.positiveYears,
-//                 ));
-
-//                 showDatePicker(
-//                   context: context,
-//                   initialDate: widget.initialValue ?? DateTime.now(),
-//                   firstDate: firstDate,
-//                   lastDate: lastDate,
-//                 ).then((value) {
-//                   _currentValue = value;
-//                   setState(() {});
-//                   if (widget.onChange != null) {
-//                     widget.onChange!(value);
-//                   }
-//                 });
-//               }
-//             },
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
+                    showDatePicker(
+                      context: context,
+                      initialDate: initialValue,
+                      firstDate: firstDate,
+                      lastDate: lastDate,
+                    ).then((value) {
+                      provider.setValue(value);
+                      if (onChange != null) {
+                        onChange!(value);
+                      }
+                    });
+                  }
+                },
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}

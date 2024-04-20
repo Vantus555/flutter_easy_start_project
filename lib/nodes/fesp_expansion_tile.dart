@@ -40,49 +40,53 @@ part 'fesp_expansion_tile.g.dart';
   ],
   invalidTypes: ['\$FespExpansionTileBuilderData'],
 )
-class FespExpansionTile extends StatelessWidget {
+class FespExpansionTileData extends _$FespExpansionTileData {
   final List<Widget> children;
   final Widget title;
   final bool material;
   final EdgeInsetsGeometry padding;
-  final ExpansionTile Function(
-    BuildContext context,
-    $FespExpansionTileBuilderData data,
-  )? fespBuilder0;
 
-  const FespExpansionTile({
-    super.key,
+  const FespExpansionTileData({
     required this.title,
     this.children = const [],
     this.material = true,
     this.padding = FESP_TILE_PADDING,
-    this.fespBuilder0,
+    super.fespBuilder0,
+  });
+}
+
+class FespExpansionTile extends StatelessWidget {
+  final FespExpansionTileData data;
+
+  const FespExpansionTile({
+    super.key,
+    required this.data,
   });
 
   @override
   Widget build(BuildContext context) {
-    var child = _$fespBuilder0(
+    var child = data._$fespBuilder0(
       context,
       $FespExpansionTileBuilderData(
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
         expandedAlignment: Alignment.topLeft,
         childrenPadding: FESP_CHILDREN_PADDING,
-        title: title,
+        title: data.title,
         backgroundColor: FESP_EXPANSION_COLOR(context),
-        children: children,
+        children: data.children,
       ),
     );
 
-    if (material) {
+    if (data.material) {
       return Padding(
-        padding: padding,
+        padding: data.padding,
         child: FespMaterial(
-          child: child,
+          data: FespMaterialData(child: child),
         ),
       );
     } else {
       return Padding(
-        padding: padding,
+        padding: data.padding,
         child: child,
       );
     }

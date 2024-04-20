@@ -48,15 +48,12 @@ part 'fesp_slider.g.dart';
   ],
   invalidTypes: ['\$FespSliderBuilderData'],
 )
-class FespSlideData {
+class FespSlideData extends _$FespSlideData {
   final int? divisions;
   final double min;
   final double max;
   final double value;
   final Function(double value)? onChanged;
-
-  final Slider Function(BuildContext context, $FespSliderBuilderData data)?
-      fespBuilder0;
 
   const FespSlideData({
     required this.value,
@@ -64,7 +61,7 @@ class FespSlideData {
     this.min = 0,
     this.max = 1,
     this.onChanged,
-    this.fespBuilder0,
+    super.fespBuilder0,
   });
 }
 

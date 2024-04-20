@@ -11,35 +11,49 @@ class FespGenHelper {
     required String name,
     String args = '',
     required String code,
+    bool private = true,
+    bool isGenerated = true,
+  }) {
+    return '$returns ${getSymbols(private, isGenerated)}$name($args) {$code}';
+  }
+
+  static String createVar({
+    required String type,
+    required String name,
     bool private = false,
   }) {
-    return '$returns ${private ? '_' : ''}\$$name($args) {$code}';
+    return '$type ${getSymbols(private, false)}$name;';
+  }
+
+  static String getSymbols(bool private, bool isGenerated) {
+    return (private ? '_' : '') + (isGenerated ? '\$' : '');
   }
 
   static String createClass({
     required String name,
     String typeClass = 'class',
-    String modifyers = '',
+    String inherit = '',
     List<String> fields = const [],
     List<String> constructorArgs = const [],
     String constructorCode = '',
     bool isConstConstructor = false,
     String code = '',
-    bool private = false,
+    bool private = true,
+    bool isGenerated = true,
   }) {
-    final className = '${private ? '_' : ''}\$$name';
+    final className = '${getSymbols(private, isGenerated)}$name';
 
     return """
-$typeClass $className $modifyers {
-  ${fields.join(';\n') + ';\n'}
+$typeClass $className $inherit {
+  ${join(iter: fields)}
 
-  ${isConstConstructor ? 'const' : ''} $className({${constructorArgs.join(',') + ','}})
+  ${isConstConstructor ? 'const' : ''} $className({${join(iter: constructorArgs, char: ',')}})
   ${isConstConstructor ? ';' : '{$constructorCode}'}
   $code
 }""";
   }
 
-  static String getConstructorArgs({
+  static String getConstructorArg({
     required String name,
     bool isRequired = false,
     String defaultValue = '',
@@ -59,11 +73,11 @@ $typeClass $className $modifyers {
     final args = StringBuffer();
     args.write('{');
     for (var element in fields.entries) {
-      final key = element.key;
-      args.write(element.key);
-      if (key[element.key.length - 1] != '?') args.write('?');
+      final value = element.value;
+      args.write(value);
+      if (value[value.length - 1] != '?') args.write('?');
       args.write(' ');
-      args.write(element.value + ',');
+      args.write(element.key + ',');
     }
     args.write('}');
 
@@ -71,10 +85,10 @@ $typeClass $className $modifyers {
     code.write('return $className(');
 
     for (var element in fields.entries) {
-      final value = element.value;
-      code.write(value);
+      final key = element.key;
+      code.write(key);
       code.write(':');
-      code.write('$value ?? this.$value,');
+      code.write('$key ?? this.$key,');
     }
     code.write(');');
 
@@ -83,6 +97,11 @@ $typeClass $className $modifyers {
       name: 'copyWith',
       args: args.toString(),
       code: code.toString(),
+      private: false,
     );
+  }
+
+  static String join({required Iterable iter, String char = ''}) {
+    return iter.join(char) + (iter.length != 0 ? char : '');
   }
 }

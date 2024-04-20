@@ -42,7 +42,15 @@ class $FespExpansionTileBuilderData {
   }
 }
 
-extension on FespExpansionTile {
+class _$FespExpansionTileData {
+  final ExpansionTile Function(
+    BuildContext p0,
+    $FespExpansionTileBuilderData p1,
+  )? fespBuilder0;
+
+  const _$FespExpansionTileData({
+    this.fespBuilder0,
+  });
   ExpansionTile _$fespBuilder0(
     BuildContext p0,
     $FespExpansionTileBuilderData p1,
@@ -53,29 +61,33 @@ extension on FespExpansionTile {
             p1,
           )
         : ExpansionTile(
-            expandedCrossAxisAlignment: p1.expandedCrossAxisAlignment,
-            expandedAlignment: p1.expandedAlignment,
-            childrenPadding: p1.childrenPadding,
-            title: p1.title,
-            backgroundColor: p1.backgroundColor,
             children: p1.children,
+            backgroundColor: p1.backgroundColor,
+            title: p1.title,
+            childrenPadding: p1.childrenPadding,
+            expandedAlignment: p1.expandedAlignment,
+            expandedCrossAxisAlignment: p1.expandedCrossAxisAlignment,
           );
   }
+}
 
-  FespExpansionTile $copyWith({
+extension on FespExpansionTileData {
+  FespExpansionTileData $copyWith({
+    final ExpansionTile Function(
+      BuildContext p0,
+      $FespExpansionTileBuilderData p1,
+    )? fespBuilder0,
     List<Widget>? children,
     Widget? title,
     bool? material,
     EdgeInsetsGeometry? padding,
-    ExpansionTile Function(BuildContext, $FespExpansionTileBuilderData)?
-        fespBuilder0,
   }) {
-    return FespExpansionTile(
+    return FespExpansionTileData(
+      fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
       children: children ?? this.children,
       title: title ?? this.title,
       material: material ?? this.material,
       padding: padding ?? this.padding,
-      fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
     );
   }
 }

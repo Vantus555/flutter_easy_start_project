@@ -18,16 +18,26 @@ class $FespSwitchBuilderData {
   });
   $FespSwitchBuilderData $copyWith({
     bool? value,
+    void Function(bool value)? onChanged,
     void Function(bool value)? onFocusChange,
   }) {
     return $FespSwitchBuilderData(
       value: value ?? this.value,
+      onChanged: onChanged ?? this.onChanged,
       onFocusChange: onFocusChange ?? this.onFocusChange,
     );
   }
 }
 
-extension on FespSwitchData {
+class _$FespSwitchData {
+  final Switch Function(
+    BuildContext p0,
+    $FespSwitchBuilderData p1,
+  )? fespBuilder0;
+
+  const _$FespSwitchData({
+    this.fespBuilder0,
+  });
   Switch _$fespBuilder0(
     BuildContext p0,
     $FespSwitchBuilderData p1,
@@ -38,19 +48,24 @@ extension on FespSwitchData {
             p1,
           )
         : Switch(
-            value: p1.value,
-            onChanged: p1.onChanged,
             onFocusChange: p1.onFocusChange,
+            onChanged: p1.onChanged,
+            value: p1.value,
           );
   }
+}
 
+extension on FespSwitchData {
   FespSwitchData $copyWith({
+    final Switch Function(
+      BuildContext p0,
+      $FespSwitchBuilderData p1,
+    )? fespBuilder0,
     $FespSwitchBuilderData? initData,
-    Switch Function(BuildContext, $FespSwitchBuilderData)? fespBuilder0,
   }) {
     return FespSwitchData(
-      initData: initData ?? this.initData,
       fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
+      initData: initData ?? this.initData,
     );
   }
 }

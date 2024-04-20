@@ -30,33 +30,36 @@ typedef ProviderType = FespValueChangeProvider<List<String>>;
   ],
   invalidTypes: ['\$FespCheckboxListBuilderData'],
 )
-class FespCheckboxList extends StatelessWidget {
+class FespCheckboxListData extends _$FespCheckboxListData {
   final Function(List<String> values)? onChanged;
   final List<String> currentValues;
   final Map<String, Widget> values;
 
-  final CheckboxListTile Function(
-    BuildContext context,
-    $FespCheckboxListBuilderData data,
-  )? fespBuilder0;
+  const FespCheckboxListData({
+    this.onChanged,
+    this.currentValues = const [],
+    super.fespBuilder0,
+    required this.values,
+  });
+}
+
+class FespCheckboxList extends StatelessWidget {
+  final FespCheckboxListData data;
 
   const FespCheckboxList({
     super.key,
-    this.onChanged,
-    this.currentValues = const [],
-    this.fespBuilder0,
-    required this.values,
+    required this.data,
   });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ProviderType(value: currentValues),
+      create: (context) => ProviderType(value: data.currentValues),
       builder: (context, child) {
         List<Widget> children = [];
         final provider = context.watch<ProviderType>();
 
-        values.forEach((key, value) {
+        data.values.forEach((key, value) {
           onLocalChanged(value) {
             if (value!) {
               provider.value.add(key);
@@ -65,15 +68,15 @@ class FespCheckboxList extends StatelessWidget {
               provider.value.remove(key);
               provider.notifyListeners();
             }
-            if (onChanged != null) {
-              onChanged!(provider.value);
+            if (data.onChanged != null) {
+              data.onChanged!(provider.value);
             }
           }
 
           final val = provider.value.contains(key);
 
           children.add(
-            _$fespBuilder0(
+            data._$fespBuilder0(
               context,
               $FespCheckboxListBuilderData(
                 title: value,

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easy_start_project/themes/fesp_themes_consts.dart';
 import 'package:flutter_easy_start_project_generator/fesp_node_classes.dart';
-// ignore: depend_on_referenced_packages
-import 'package:copy_with_extension/copy_with_extension.dart';
 
 part 'fesp_text_field.g.dart';
 
@@ -84,33 +82,18 @@ final fespNumberFormat =
     '\$FespTextFieldBuilderData',
   ],
 )
-class FespTextFieldData {
+class FespTextFieldData extends _$FespTextFieldData {
   final String labelText;
   final String initialValue;
-  final Function(bool isFocus, String value)? onFocusChange;
-
-  final Focus Function(
-    BuildContext context,
-    $FespTextFieldFocusBuilderData data,
-  )? fespBuilder0;
-
-  final FocusNode Function(
-    BuildContext context,
-    $FespTextFieldFocusNodeBuilderData data,
-  )? fespBuilder1;
-
-  final TextFormField Function(
-    BuildContext context,
-    $FespTextFieldBuilderData data,
-  )? fespBuilder2;
+  final void Function(bool isFocus, String value)? onFocusChange;
 
   const FespTextFieldData({
     this.labelText = '',
     this.initialValue = '',
     this.onFocusChange,
-    this.fespBuilder0,
-    this.fespBuilder1,
-    this.fespBuilder2,
+    super.fespBuilder0,
+    super.fespBuilder1,
+    super.fespBuilder2,
   });
 }
 

@@ -71,7 +71,25 @@ class $FespTextFieldBuilderData {
   }
 }
 
-extension on FespTextFieldData {
+class _$FespTextFieldData {
+  final Focus Function(
+    BuildContext p0,
+    $FespTextFieldFocusBuilderData p1,
+  )? fespBuilder0;
+  final FocusNode Function(
+    BuildContext p0,
+    $FespTextFieldFocusNodeBuilderData p1,
+  )? fespBuilder1;
+  final TextFormField Function(
+    BuildContext p0,
+    $FespTextFieldBuilderData p1,
+  )? fespBuilder2;
+
+  const _$FespTextFieldData({
+    this.fespBuilder0,
+    this.fespBuilder1,
+    this.fespBuilder2,
+  });
   Focus _$fespBuilder0(
     BuildContext p0,
     $FespTextFieldFocusBuilderData p1,
@@ -82,9 +100,9 @@ extension on FespTextFieldData {
             p1,
           )
         : Focus(
+            onFocusChange: p1.onFocusChange,
             focusNode: _$fespBuilder1(p0, p1.focusNode),
             child: _$fespBuilder2(p0, p1.child),
-            onFocusChange: p1.onFocusChange,
           );
   }
 
@@ -112,28 +130,39 @@ extension on FespTextFieldData {
             p1,
           )
         : TextFormField(
-            controller: p1.controller,
-            obscureText: p1.obscureText,
-            inputFormatters: p1.inputFormatters,
             decoration: p1.decoration,
+            inputFormatters: p1.inputFormatters,
+            obscureText: p1.obscureText,
+            controller: p1.controller,
           );
   }
+}
 
+extension on FespTextFieldData {
   FespTextFieldData $copyWith({
+    final Focus Function(
+      BuildContext p0,
+      $FespTextFieldFocusBuilderData p1,
+    )? fespBuilder0,
+    final FocusNode Function(
+      BuildContext p0,
+      $FespTextFieldFocusNodeBuilderData p1,
+    )? fespBuilder1,
+    final TextFormField Function(
+      BuildContext p0,
+      $FespTextFieldBuilderData p1,
+    )? fespBuilder2,
+    String? labelText,
     String? initialValue,
-    dynamic Function(bool, String)? onFocusChange,
-    Focus Function(BuildContext, $FespTextFieldFocusBuilderData)? fespBuilder0,
-    FocusNode Function(BuildContext, $FespTextFieldFocusNodeBuilderData)?
-        fespBuilder1,
-    TextFormField Function(BuildContext, $FespTextFieldBuilderData)?
-        fespBuilder2,
+    void Function(bool, String)? onFocusChange,
   }) {
     return FespTextFieldData(
-      initialValue: initialValue ?? this.initialValue,
-      onFocusChange: onFocusChange ?? this.onFocusChange,
       fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
       fespBuilder1: fespBuilder1 ?? this.fespBuilder1,
       fespBuilder2: fespBuilder2 ?? this.fespBuilder2,
+      labelText: labelText ?? this.labelText,
+      initialValue: initialValue ?? this.initialValue,
+      onFocusChange: onFocusChange ?? this.onFocusChange,
     );
   }
 }

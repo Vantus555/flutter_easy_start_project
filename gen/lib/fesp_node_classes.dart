@@ -3,10 +3,12 @@ import 'package:analyzer/dart/constant/value.dart';
 class FespNodeBuildersA {
   final List<FespNodeBuilderField> builders;
   final List<String> invalidTypes;
+  final String inherit;
 
   const FespNodeBuildersA({
     required this.builders,
     this.invalidTypes = const [],
+    this.inherit = '',
   });
 
   factory FespNodeBuildersA.obj(DartObject e) {

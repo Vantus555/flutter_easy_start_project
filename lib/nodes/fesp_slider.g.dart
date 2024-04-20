@@ -24,12 +24,16 @@ class $FespSliderBuilderData {
   });
   $FespSliderBuilderData $copyWith({
     int? divisions,
+    double? min,
+    double? max,
     double? value,
     String? label,
     Function(double value)? onChanged,
   }) {
     return $FespSliderBuilderData(
       divisions: divisions ?? this.divisions,
+      min: min ?? this.min,
+      max: max ?? this.max,
       value: value ?? this.value,
       label: label ?? this.label,
       onChanged: onChanged ?? this.onChanged,
@@ -37,7 +41,15 @@ class $FespSliderBuilderData {
   }
 }
 
-extension on FespSlideData {
+class _$FespSlideData {
+  final Slider Function(
+    BuildContext p0,
+    $FespSliderBuilderData p1,
+  )? fespBuilder0;
+
+  const _$FespSlideData({
+    this.fespBuilder0,
+  });
   Slider _$fespBuilder0(
     BuildContext p0,
     $FespSliderBuilderData p1,
@@ -48,26 +60,35 @@ extension on FespSlideData {
             p1,
           )
         : Slider(
-            divisions: p1.divisions,
-            min: p1.min,
-            max: p1.max,
-            value: p1.value,
-            label: p1.label,
             onChanged: p1.onChanged,
+            label: p1.label,
+            value: p1.value,
+            max: p1.max,
+            min: p1.min,
+            divisions: p1.divisions,
           );
   }
+}
 
+extension on FespSlideData {
   FespSlideData $copyWith({
+    final Slider Function(
+      BuildContext p0,
+      $FespSliderBuilderData p1,
+    )? fespBuilder0,
     int? divisions,
+    double? min,
+    double? max,
     double? value,
     dynamic Function(double)? onChanged,
-    Slider Function(BuildContext, $FespSliderBuilderData)? fespBuilder0,
   }) {
     return FespSlideData(
+      fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
       divisions: divisions ?? this.divisions,
+      min: min ?? this.min,
+      max: max ?? this.max,
       value: value ?? this.value,
       onChanged: onChanged ?? this.onChanged,
-      fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
     );
   }
 }

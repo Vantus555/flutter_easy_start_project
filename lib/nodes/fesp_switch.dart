@@ -33,14 +33,12 @@ part 'fesp_switch.g.dart';
   '\$FespSwitchBuilderData',
   '\$FespSwitchBuilderData',
 ])
-class FespSwitchData {
+class FespSwitchData extends _$FespSwitchData {
   final $FespSwitchBuilderData initData;
-  final Switch Function(BuildContext context, $FespSwitchBuilderData data)?
-      fespBuilder0;
 
   const FespSwitchData({
     this.initData = const $FespSwitchBuilderData(),
-    this.fespBuilder0,
+    super.fespBuilder0,
   });
 }
 

@@ -4,20 +4,6 @@ import 'package:flutter_easy_start_project_generator/fesp_node_classes.dart';
 
 part 'fesp_material.g.dart';
 
-class FespMaterialBuilderData {
-  final BorderRadius borderRadius;
-  final double elevation;
-  final Color shadowColor;
-  final Widget? child;
-
-  FespMaterialBuilderData({
-    required this.borderRadius,
-    required this.elevation,
-    required this.shadowColor,
-    this.child,
-  });
-}
-
 @FespNodeBuildersA(
   builders: [
     FespNodeBuilderField(
@@ -28,6 +14,10 @@ class FespMaterialBuilderData {
       ],
       returnType: 'Material',
       classFields: [
+        FespNodeBuilderClassField(
+          type: 'Widget',
+          name: 'child',
+        ),
         FespNodeBuilderClassField(
           type: 'BorderRadius',
           name: 'borderRadius',
@@ -40,38 +30,37 @@ class FespMaterialBuilderData {
           type: 'Color',
           name: 'shadowColor',
         ),
-        FespNodeBuilderClassField(
-          type: 'Widget',
-          name: 'child',
-        ),
       ],
     ),
   ],
   invalidTypes: ['\$FespMaterialBuilderData'],
 )
-class FespMaterial extends StatelessWidget {
+class FespMaterialData extends _$FespMaterialData {
   final Widget child;
 
-  final Material Function(
-    BuildContext context,
-    $FespMaterialBuilderData data,
-  )? fespBuilder0;
+  const FespMaterialData({
+    required this.child,
+    super.fespBuilder0,
+  });
+}
+
+class FespMaterial extends StatelessWidget {
+  final FespMaterialData data;
 
   const FespMaterial({
     super.key,
-    this.fespBuilder0,
-    required this.child,
+    required this.data,
   });
 
   @override
   Widget build(BuildContext context) {
-    return _$fespBuilder0(
+    return data._$fespBuilder0(
       context,
       $FespMaterialBuilderData(
         borderRadius: FESP_BORDER_RADIUS,
         elevation: FESP_MATERIAL_ELEVATION,
         shadowColor: FESP_SHADOW_COLOR(context),
-        child: child,
+        child: data.child,
       ),
     );
   }
