@@ -1,44 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easy_start_project/nav/fesp_nav_rail.dart';
 import 'package:flutter_easy_start_project/nodes/fesp_container.dart';
-import 'package:flutter_easy_start_project/nodes/fesp_nav_bar.dart';
+import 'package:flutter_easy_start_project/nav/fesp_bottom_nav_bar.dart';
 import 'package:flutter_easy_start_project/nodes/fesp_responsive_layout.dart';
 import 'package:flutter_easy_start_project/nodes/fesp_theme_tggler.dart';
 import 'package:flutter_easy_start_project/view_models/fesp_app_providesr.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class FespBasePage extends StatelessWidget {
-  final String? title;
+class FespSkeletonPage extends StatelessWidget {
+  // final String? title;
   final StatefulNavigationShell child;
 
-  const FespBasePage({
+  const FespSkeletonPage({
     super.key,
-    this.title,
     required this.child,
   });
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<FespAppProvider>();
+    final bar = FespBottomNavBar(
+      navItems: provider.data.navItems,
+      child: child,
+    );
+    final rail = FespNavRail(
+      navItems: provider.data.navItems,
+      child: child,
+    );
+
     return FespResponsiveLayout(
-      md: _getScaffold(context),
-      lg: _getScaffold(context, rail: true),
+      md: _getScaffold(context, bar: bar),
+      lg: _getScaffold(context, rail: rail),
     );
   }
 
   Widget _getScaffold(
     BuildContext context, {
-    bool rail = false,
+    FespNavRail? rail,
+    FespBottomNavBar? bar,
   }) {
     final provider = context.read<FespAppProvider>();
 
-    final nav = FespBottomNavBar(
-      rail: rail,
-      child: child,
-    );
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(title ?? "FestApp"),
+        title: const Text("FestApp"),
         actions: const [
           FespThemeToggler(),
           SizedBox(width: 20),
@@ -47,7 +53,7 @@ class FespBasePage extends StatelessWidget {
       ),
       body: Row(
         children: [
-          rail == true ? nav : const SizedBox.shrink(),
+          rail ?? const SizedBox.shrink(),
           Expanded(
             child: FespContainer(
               settings: provider.data.mainContainerData,
@@ -58,7 +64,7 @@ class FespBasePage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: rail == false ? nav : null,
+      bottomNavigationBar: bar,
     );
   }
 }

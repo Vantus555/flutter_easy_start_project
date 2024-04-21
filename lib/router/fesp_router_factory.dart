@@ -1,4 +1,4 @@
-import 'package:flutter_easy_start_project/containers/fesp_base_page.dart';
+import 'package:flutter_easy_start_project/pages/fesp_skeleton_page.dart';
 import 'package:flutter_easy_start_project/structs/fesp_nav_item_data.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,7 +22,7 @@ abstract class FespRoutDataerFactory {
         StatefulShellRoute.indexedStack(
           branches: branches,
           builder: (context, state, navigationShell) {
-            return FespBasePage(
+            return FespSkeletonPage(
               key: state.pageKey,
               child: navigationShell,
             );
@@ -44,10 +44,7 @@ abstract class FespRoutDataerFactory {
       routes.add(
         GoRoute(
           path: element.path,
-          builder: (context, state) {
-            // state.pathParameters['title'] = element.title;
-            return element.child;
-          },
+          builder: element.builder,
           routes: _getRouters(element.routes),
         ),
       );
