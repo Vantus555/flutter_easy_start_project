@@ -12,6 +12,10 @@ part 'fesp_expansion_tile.g.dart';
       returnType: 'ExpansionTile',
       classFields: [
         FespNodeBuilderClassField(
+          type: 'List<Widget>',
+          name: 'children',
+        ),
+        FespNodeBuilderClassField(
           type: 'CrossAxisAlignment',
           name: 'expandedCrossAxisAlignment',
         ),
@@ -30,10 +34,6 @@ part 'fesp_expansion_tile.g.dart';
         FespNodeBuilderClassField(
           type: 'Color',
           name: 'backgroundColor',
-        ),
-        FespNodeBuilderClassField(
-          type: 'List<Widget>',
-          name: 'children',
         ),
       ],
     ),

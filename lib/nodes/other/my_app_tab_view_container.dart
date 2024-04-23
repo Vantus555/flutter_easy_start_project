@@ -47,6 +47,7 @@
 //       children.add(
 //         Expanded(
 //           child: TabBarView(
+//             physics: const NeverScrollableScrollPhysics(),
 //             controller: controller,
 //             children: widget.tabBarViewChildren!,
 //           ),

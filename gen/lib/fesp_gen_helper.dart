@@ -98,6 +98,7 @@ $typeClass $className $inherit {
       args: args.toString(),
       code: code.toString(),
       private: false,
+      isGenerated: false,
     );
   }
 

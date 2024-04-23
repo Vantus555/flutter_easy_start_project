@@ -16,3 +16,4 @@ const FESP_CHILDREN_PADDING = EdgeInsets.all(10);
 
 FESP_SHADOW_COLOR(ctx) => Theme.of(ctx).primaryColor;
 FESP_EXPANSION_COLOR(ctx) => Theme.of(ctx).focusColor;
+TAB_BAR_DEFAULT_COLOR(ctx) => Theme.of(ctx).appBarTheme.backgroundColor;

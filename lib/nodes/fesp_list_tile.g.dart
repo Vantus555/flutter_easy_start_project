@@ -20,7 +20,7 @@ class $FespListTileBuilderData {
     required this.shape,
     this.onTap,
   });
-  $FespListTileBuilderData $copyWith({
+  $FespListTileBuilderData copyWith({
     Widget? title,
     Widget? leading,
     Widget? trailing,
@@ -66,7 +66,7 @@ class _$FespListTileData {
 }
 
 extension on FespListTileData {
-  FespListTileData $copyWith({
+  FespListTileData copyWith({
     final ListTile Function(
       BuildContext p0,
       $FespListTileBuilderData p1,

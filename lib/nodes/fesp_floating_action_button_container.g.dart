@@ -12,7 +12,7 @@ class $FespFloatingContainerBuilderData {
   const $FespFloatingContainerBuilderData({
     required this.child,
   });
-  $FespFloatingContainerBuilderData $copyWith({
+  $FespFloatingContainerBuilderData copyWith({
     Widget? child,
   }) {
     return $FespFloatingContainerBuilderData(
@@ -46,7 +46,7 @@ class _$FespFloatingActionButtonContainerData {
 }
 
 extension on FespFloatingActionButtonContainerData {
-  FespFloatingActionButtonContainerData $copyWith({
+  FespFloatingActionButtonContainerData copyWith({
     final FespContainer Function(
       BuildContext p0,
       $FespFloatingContainerBuilderData p1,

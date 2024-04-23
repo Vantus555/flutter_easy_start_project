@@ -18,7 +18,7 @@ class $FespMaterialBuilderData {
     required this.elevation,
     required this.shadowColor,
   });
-  $FespMaterialBuilderData $copyWith({
+  $FespMaterialBuilderData copyWith({
     Widget? child,
     BorderRadius? borderRadius,
     double? elevation,
@@ -61,7 +61,7 @@ class _$FespMaterialData {
 }
 
 extension on FespMaterialData {
-  FespMaterialData $copyWith({
+  FespMaterialData copyWith({
     final Material Function(
       BuildContext p0,
       $FespMaterialBuilderData p1,

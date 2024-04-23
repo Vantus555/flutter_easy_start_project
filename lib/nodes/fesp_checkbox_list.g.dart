@@ -16,7 +16,7 @@ class $FespCheckboxListBuilderData {
     required this.value,
     required this.onChanged,
   });
-  $FespCheckboxListBuilderData $copyWith({
+  $FespCheckboxListBuilderData copyWith({
     Widget? title,
     bool? value,
     void Function(bool?)? onChanged,
@@ -56,7 +56,7 @@ class _$FespCheckboxListData {
 }
 
 extension on FespCheckboxListData {
-  FespCheckboxListData $copyWith({
+  FespCheckboxListData copyWith({
     final CheckboxListTile Function(
       BuildContext p0,
       $FespCheckboxListBuilderData p1,

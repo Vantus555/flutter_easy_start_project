@@ -28,7 +28,7 @@ class $FespRadioListBuilderData {
     this.visualDensity,
     this.shape,
   });
-  $FespRadioListBuilderData $copyWith({
+  $FespRadioListBuilderData copyWith({
     Object? value,
     Object? groupValue,
     void Function(Object?)? onChanged,
@@ -86,7 +86,7 @@ class _$FespRadioListBuilderData {
 }
 
 extension on FespRadioListBuilderData {
-  FespRadioListBuilderData $copyWith({
+  FespRadioListBuilderData copyWith({
     final RadioListTile Function(
       BuildContext p0,
       $FespRadioListBuilderData p1,

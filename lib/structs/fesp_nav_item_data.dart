@@ -7,6 +7,7 @@ class FespNavItemData {
   final String title;
   final String? label;
   final String path;
+  final String name;
   final Widget Function(BuildContext context, GoRouterState state) builder;
   final List<FespNavItemData>? routes;
 
@@ -15,6 +16,7 @@ class FespNavItemData {
     required this.activeIcon,
     required this.title,
     required this.path,
+    required this.name,
     required this.builder,
     this.label,
     this.routes,

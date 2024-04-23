@@ -16,7 +16,7 @@ class $FespSwitchBuilderData {
     this.onChanged,
     this.onFocusChange,
   });
-  $FespSwitchBuilderData $copyWith({
+  $FespSwitchBuilderData copyWith({
     bool? value,
     void Function(bool value)? onChanged,
     void Function(bool value)? onFocusChange,
@@ -56,7 +56,7 @@ class _$FespSwitchData {
 }
 
 extension on FespSwitchData {
-  FespSwitchData $copyWith({
+  FespSwitchData copyWith({
     final Switch Function(
       BuildContext p0,
       $FespSwitchBuilderData p1,

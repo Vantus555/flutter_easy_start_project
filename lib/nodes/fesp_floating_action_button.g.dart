@@ -18,7 +18,7 @@ class $FespFloatingActionButtonBuilderData {
     required this.mini,
     required this.shape,
   });
-  $FespFloatingActionButtonBuilderData $copyWith({
+  $FespFloatingActionButtonBuilderData copyWith({
     Widget? child,
     void Function()? onPressed,
     bool? mini,
@@ -61,7 +61,7 @@ class _$FespFloatingActionButtonData {
 }
 
 extension on FespFloatingActionButtonData {
-  FespFloatingActionButtonData $copyWith({
+  FespFloatingActionButtonData copyWith({
     final FloatingActionButton Function(
       BuildContext p0,
       $FespFloatingActionButtonBuilderData p1,

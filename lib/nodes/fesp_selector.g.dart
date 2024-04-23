@@ -20,7 +20,7 @@ class $FespSelectorBuilderData {
     required this.items,
     this.onChanged,
   });
-  $FespSelectorBuilderData $copyWith({
+  $FespSelectorBuilderData copyWith({
     bool? isExpanded,
     InputDecoration? decoration,
     Object? value,
@@ -38,20 +38,20 @@ class $FespSelectorBuilderData {
 }
 
 class $FespDropdownMenuItemBuilderData {
-  final Object value;
   final Widget child;
+  final Object value;
 
   const $FespDropdownMenuItemBuilderData({
-    required this.value,
     required this.child,
+    required this.value,
   });
-  $FespDropdownMenuItemBuilderData $copyWith({
-    Object? value,
+  $FespDropdownMenuItemBuilderData copyWith({
     Widget? child,
+    Object? value,
   }) {
     return $FespDropdownMenuItemBuilderData(
-      value: value ?? this.value,
       child: child ?? this.child,
+      value: value ?? this.value,
     );
   }
 }
@@ -98,14 +98,14 @@ class _$FespSelector {
             p1,
           )
         : DropdownMenuItem<Object>(
-            child: p1.child,
             value: p1.value,
+            child: p1.child,
           );
   }
 }
 
 extension on FespSelector {
-  FespSelector $copyWith({
+  FespSelector copyWith({
     final DropdownButtonFormField Function(
       BuildContext p0,
       $FespSelectorBuilderData p1,

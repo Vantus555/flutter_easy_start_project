@@ -22,7 +22,7 @@ class $FespSliderBuilderData {
     required this.label,
     this.onChanged,
   });
-  $FespSliderBuilderData $copyWith({
+  $FespSliderBuilderData copyWith({
     int? divisions,
     double? min,
     double? max,
@@ -71,7 +71,7 @@ class _$FespSlideData {
 }
 
 extension on FespSlideData {
-  FespSlideData $copyWith({
+  FespSlideData copyWith({
     final Slider Function(
       BuildContext p0,
       $FespSliderBuilderData p1,

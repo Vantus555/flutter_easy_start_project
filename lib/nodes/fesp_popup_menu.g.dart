@@ -14,7 +14,7 @@ class $FespMenuAnchorBuilderData {
     required this.builder,
     required this.menuChildren,
   });
-  $FespMenuAnchorBuilderData $copyWith({
+  $FespMenuAnchorBuilderData copyWith({
     Widget Function(BuildContext, MenuController, Widget?)? builder,
     List<Widget>? menuChildren,
   }) {
@@ -26,20 +26,20 @@ class $FespMenuAnchorBuilderData {
 }
 
 class $FespMenuItemButtonData {
-  final void Function() onPressed;
   final Widget child;
+  final void Function() onPressed;
 
   const $FespMenuItemButtonData({
-    required this.onPressed,
     required this.child,
+    required this.onPressed,
   });
-  $FespMenuItemButtonData $copyWith({
-    void Function()? onPressed,
+  $FespMenuItemButtonData copyWith({
     Widget? child,
+    void Function()? onPressed,
   }) {
     return $FespMenuItemButtonData(
-      onPressed: onPressed ?? this.onPressed,
       child: child ?? this.child,
+      onPressed: onPressed ?? this.onPressed,
     );
   }
 }
@@ -83,14 +83,14 @@ class _$FespPopupMenuData {
             p1,
           )
         : MenuItemButton(
-            child: p1.child,
             onPressed: p1.onPressed,
+            child: p1.child,
           );
   }
 }
 
 extension on FespPopupMenuData {
-  FespPopupMenuData $copyWith({
+  FespPopupMenuData copyWith({
     final MenuAnchor Function(
       BuildContext p0,
       $FespMenuAnchorBuilderData p1,

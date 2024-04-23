@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 part 'fesp_selector.g.dart';
 
+// ignore: camel_case_types
 typedef _providerType = FespValueChangeProvider<Object>;
 
 @FespNodeBuildersA(
@@ -42,12 +43,12 @@ typedef _providerType = FespValueChangeProvider<Object>;
       returnType: 'DropdownMenuItem<Object>',
       classFields: [
         FespNodeBuilderClassField(
-          type: 'Object',
-          name: 'value',
-        ),
-        FespNodeBuilderClassField(
           type: 'Widget',
           name: 'child',
+        ),
+        FespNodeBuilderClassField(
+          type: 'Object',
+          name: 'value',
         ),
       ],
     ),
@@ -72,10 +73,10 @@ class FespSelector extends _$FespSelector {
   });
 
   List<DropdownMenuItem<Object>> trueItems(BuildContext p0) {
-    List<DropdownMenuItem<Object>> _items = [];
+    List<DropdownMenuItem<Object>> trueItems = [];
 
     if (items.isEmpty) {
-      _items = items.entries
+      trueItems = items.entries
           .map(
             (e) => _$fespBuilder1(
               p0,
@@ -87,7 +88,7 @@ class FespSelector extends _$FespSelector {
           )
           .toList();
     }
-    return _items;
+    return trueItems;
   }
 }
 

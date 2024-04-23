@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 part 'fesp_radio_list.g.dart';
 
+// ignore: camel_case_types
 typedef _providerType = FespValueChangeProvider<Object?>;
 
 @FespNodeBuildersA(

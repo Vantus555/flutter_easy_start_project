@@ -24,12 +24,12 @@ part 'fesp_popup_menu.g.dart';
       returnType: 'MenuItemButton',
       classFields: [
         FespNodeBuilderClassField(
-          type: 'void Function()',
-          name: 'onPressed',
-        ),
-        FespNodeBuilderClassField(
           type: 'Widget',
           name: 'child',
+        ),
+        FespNodeBuilderClassField(
+          type: 'void Function()',
+          name: 'onPressed',
         ),
       ],
     ),

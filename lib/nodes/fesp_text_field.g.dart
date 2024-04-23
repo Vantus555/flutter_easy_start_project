@@ -16,7 +16,7 @@ class $FespTextFieldFocusBuilderData {
     required this.focusNode,
     required this.child,
   });
-  $FespTextFieldFocusBuilderData $copyWith({
+  $FespTextFieldFocusBuilderData copyWith({
     Function(bool)? onFocusChange,
     $FespTextFieldFocusNodeBuilderData? focusNode,
     $FespTextFieldBuilderData? child,
@@ -35,7 +35,7 @@ class $FespTextFieldFocusNodeBuilderData {
   const $FespTextFieldFocusNodeBuilderData({
     required this.canRequestFocus,
   });
-  $FespTextFieldFocusNodeBuilderData $copyWith({
+  $FespTextFieldFocusNodeBuilderData copyWith({
     bool? canRequestFocus,
   }) {
     return $FespTextFieldFocusNodeBuilderData(
@@ -56,7 +56,7 @@ class $FespTextFieldBuilderData {
     this.inputFormatters,
     required this.decoration,
   });
-  $FespTextFieldBuilderData $copyWith({
+  $FespTextFieldBuilderData copyWith({
     TextEditingController? controller,
     bool? obscureText,
     List<TextInputFormatter>? inputFormatters,
@@ -139,7 +139,7 @@ class _$FespTextFieldData {
 }
 
 extension on FespTextFieldData {
-  FespTextFieldData $copyWith({
+  FespTextFieldData copyWith({
     final Focus Function(
       BuildContext p0,
       $FespTextFieldFocusBuilderData p1,

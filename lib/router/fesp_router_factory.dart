@@ -1,3 +1,4 @@
+import 'package:flutter_easy_start_project/pages/fesp_base_page.dart';
 import 'package:flutter_easy_start_project/pages/fesp_skeleton_page.dart';
 import 'package:flutter_easy_start_project/structs/fesp_nav_item_data.dart';
 import 'package:go_router/go_router.dart';
@@ -44,7 +45,13 @@ abstract class FespRoutDataerFactory {
       routes.add(
         GoRoute(
           path: element.path,
-          builder: element.builder,
+          name: element.name,
+          builder: (context, state) {
+            return FespBasePage(
+              navItems: element.routes,
+              child: element.builder(context, state),
+            );
+          },
           routes: _getRouters(element.routes),
         ),
       );

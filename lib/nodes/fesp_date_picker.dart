@@ -4,6 +4,7 @@ import 'package:flutter_easy_start_project/view_models/fesp_value_change_provide
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+// ignore: camel_case_types
 typedef _providerType = FespValueChangeProvider<DateTime?>;
 
 class FespDatePicker extends StatelessWidget {

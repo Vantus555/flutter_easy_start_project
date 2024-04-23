@@ -20,6 +20,7 @@ void main() {
           label: "main",
           builder: (context, state) => const FespPresentationPage(),
           path: '/',
+          name: 'index',
         ),
         FespNavItemData(
           icon: Icons.settings_outlined,
@@ -28,6 +29,25 @@ void main() {
           label: "settings",
           builder: (context, state) => const MyWidget(),
           path: '/settings',
+          name: 'settings',
+          routes: [
+            FespNavItemData(
+              icon: Icons.settings_outlined,
+              activeIcon: Icons.settings,
+              title: 'settings1',
+              path: 'settings1',
+              name: 'settings1',
+              builder: (context, state) => Text('settings1'),
+            ),
+            FespNavItemData(
+              icon: Icons.settings_outlined,
+              activeIcon: Icons.settings,
+              title: 'settings2',
+              path: 'settings2',
+              name: 'settings2',
+              builder: (context, state) => Text('settings2'),
+            ),
+          ],
         ),
       ],
     ),

@@ -109,7 +109,7 @@ class FespTextField extends StatelessWidget {
     Key? key,
     final FespTextFieldData data = const FespTextFieldData(),
   }) {
-    final newData = data.$copyWith(
+    final newData = data.copyWith(
       fespBuilder2: (context, newData) {
         return data._$fespBuilder2(
           context,
@@ -133,7 +133,7 @@ class FespTextField extends StatelessWidget {
     Key? key,
     final FespTextFieldData data = const FespTextFieldData(),
   }) {
-    final newData = data.$copyWith(
+    final newData = data.copyWith(
       fespBuilder2: (context, newData) {
         return data._$fespBuilder2(
           context,
@@ -157,7 +157,7 @@ class FespTextField extends StatelessWidget {
     Key? key,
     final FespTextFieldData data = const FespTextFieldData(),
   }) {
-    final newData = data.$copyWith(
+    final newData = data.copyWith(
       fespBuilder2: (context, newData) {
         return data._$fespBuilder2(
           context,
