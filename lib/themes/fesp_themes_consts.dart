@@ -15,5 +15,6 @@ const FESP_TILE_PADDING = EdgeInsets.all(5);
 const FESP_CHILDREN_PADDING = EdgeInsets.all(10);
 
 FESP_SHADOW_COLOR(ctx) => Theme.of(ctx).primaryColor;
-FESP_EXPANSION_COLOR(ctx) => Theme.of(ctx).focusColor;
+FESP_ACTIVE_COLOR(ctx) => Theme.of(ctx).focusColor;
+FESP_EXPANSION_COLOR(ctx) => FESP_ACTIVE_COLOR(ctx);
 TAB_BAR_DEFAULT_COLOR(ctx) => Theme.of(ctx).appBarTheme.backgroundColor;

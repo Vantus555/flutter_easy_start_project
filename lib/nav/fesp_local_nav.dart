@@ -3,35 +3,40 @@ import 'package:flutter_easy_start_project/structs/fesp_nav_item_data.dart';
 import 'package:go_router/go_router.dart';
 
 class FespLocalNav extends StatelessWidget {
-  final double? tabHeight;
   final List<FespNavItemData>? navItems;
-  final int currentIndex;
+  final String? title;
 
   const FespLocalNav({
     super.key,
-    this.tabHeight = 32,
     this.navItems,
-    required this.currentIndex,
+    this.title,
   });
 
   @override
   Widget build(BuildContext context) {
-    // if (navItems == null) return const SizedBox.shrink();
+    final List<Widget> children = [];
 
-    // final List<Widget> children = [];
-    // for (var i = 0; i < navItems!.length; i++) {
-    //   children.add(
-    //     TextButton(
-    //       onPressed: () => context.goNamed(navItems![i].name),
-    //       child: Text(navItems![i].title),
-    //     ),
-    //   );
-    // }
+    if (title != null) {
+      children.add(Text(title!));
+      children.add(const SizedBox(width: 20));
+    }
 
-    return Container(
-      color: Colors.amber,
-      width: double.infinity,
-      child: Text('hello'),
+    if (navItems != null) {
+      for (var i = 0; i < navItems!.length; i++) {
+        children.add(
+          TextButton(
+            onPressed: () => context.goNamed(navItems![i].name),
+            child: Text(navItems![i].title),
+          ),
+        );
+      }
+    }
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: children,
+      ),
     );
   }
 }

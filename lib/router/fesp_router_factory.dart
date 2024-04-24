@@ -48,7 +48,7 @@ abstract class FespRoutDataerFactory {
           name: element.name,
           builder: (context, state) {
             return FespBasePage(
-              navItems: element.routes,
+              navItem: element,
               child: element.builder(context, state),
             );
           },
