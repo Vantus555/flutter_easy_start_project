@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easy_start_project/nodes/fesp_text.dart';
+import 'package:flutter_easy_start_project/nodes/forms/fesp_text.dart';
 
 class FespPresentationPage extends StatelessWidget {
   const FespPresentationPage({super.key});

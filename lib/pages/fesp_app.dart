@@ -50,7 +50,7 @@ class _Root extends StatelessWidget {
     final mode = context.select(
       (FespThemeModeProvider settings) => settings.currentThemeMode,
     );
-    final router = context.read<FespAppProvider>().data.router;
+    final router = context.read<FespAppProvider>().router;
 
     return SafeArea(
       key: key,

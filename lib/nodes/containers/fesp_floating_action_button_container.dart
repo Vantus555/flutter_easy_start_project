@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easy_start_project/nodes/fesp_container.dart';
+import 'package:flutter_easy_start_project/nodes/containers/fesp_container.dart';
 import 'package:flutter_easy_start_project_generator/fesp_node_classes.dart';
 
 part 'fesp_floating_action_button_container.g.dart';

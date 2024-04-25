@@ -10,6 +10,7 @@ class FespNavItemData {
   final String name;
   final Widget Function(BuildContext context, GoRouterState state) builder;
   final List<FespNavItemData>? routes;
+  final bool isEnable;
 
   FespNavItemData({
     required this.icon,
@@ -20,5 +21,6 @@ class FespNavItemData {
     required this.builder,
     this.label,
     this.routes,
+    this.isEnable = true,
   });
 }

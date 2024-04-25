@@ -16,17 +16,19 @@ class FespLocalNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> children = [];
 
-    if (title != null) {
-      children.add(Text(title!));
-      children.add(const SizedBox(width: 20));
-    }
+    // if (title != null) {
+    //   children.add(Text(title!));
+    //   children.add(const SizedBox(width: 20));
+    // }
 
     if (navItems != null) {
-      for (var i = 0; i < navItems!.length; i++) {
+      for (var element in navItems!) {
+        if (!element.isEnable) continue;
+
         children.add(
           TextButton(
-            onPressed: () => context.goNamed(navItems![i].name),
-            child: Text(navItems![i].title),
+            onPressed: () => context.goNamed(element.name),
+            child: Text(element.title),
           ),
         );
       }
