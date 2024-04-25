@@ -33,9 +33,7 @@ class FespBasePage extends StatelessWidget {
       ),
       body: FespContainer(
         settings: provider.data.mainContainerData,
-        child: SingleChildScrollView(
-          child: child,
-        ),
+        child: child,
       ),
     );
   }

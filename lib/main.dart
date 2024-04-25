@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easy_start_project/nodes/containers/fesp_vertical_tab_container.dart';
+import 'package:flutter_easy_start_project/nodes/fesp_list_searcher.dart';
+import 'package:flutter_easy_start_project/nodes/fesp_slide_up_panel.dart';
 import 'package:flutter_easy_start_project/pages/fesp_app.dart';
 import 'package:flutter_easy_start_project/nodes/containers/fesp_container.dart';
-import 'package:flutter_easy_start_project/nodes/forms/fesp_text_field.dart';
 import 'package:flutter_easy_start_project/pages/fesp_presentation_page.dart';
 import 'package:flutter_easy_start_project/structs/fesp_app_data.dart';
 import 'package:flutter_easy_start_project/structs/fesp_nav_item_data.dart';
@@ -60,6 +62,16 @@ class MyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FespTextField();
+    return FespVerticalTabContainer(
+      data: FespVerticalTabContainerData(
+        listSearchData: FespListSearcherData(
+          children: ['hello', 'find'],
+          onChange: (element, index, value) {
+            if (element.contains(value)) return Text(element);
+            return const SizedBox.shrink();
+          },
+        ),
+      ),
+    );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 const FESP_TEXT_INPUT_BORDER = OutlineInputBorder();
 const FESP_TEXT_INPUT_CONTENT_PADDING = EdgeInsets.all(13);
 
+const double SLIDE_PANEL_BORDER_RADIUS = 24;
 final FESP_BORDER_RADIUS = BorderRadius.circular(5);
 final FESP_SHAPE = RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(5),
