@@ -44,9 +44,7 @@ class FespListSearcher<T> extends StatelessWidget {
                     inputFormatters: p1.inputFormatters,
                     decoration: p1.decoration,
                     onChanged: (value) {
-                      provider.value = value;
-                      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-                      provider.notifyListeners();
+                      provider.setValue(value);
                     },
                   );
                 },
@@ -78,7 +76,7 @@ class _FespListSearcherValues<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchValue = context.select(
-      (_providerType value) => value.value,
+      (_providerType value) => value.getValue(),
     );
 
     List<Widget> results = [];

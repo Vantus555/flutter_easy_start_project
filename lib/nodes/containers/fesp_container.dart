@@ -33,11 +33,15 @@ class FespContainerData {
 class FespContainer extends StatelessWidget {
   final FespContainerData settings;
   final Widget child;
+  final double padding;
+  final double margin;
 
   const FespContainer({
     super.key,
     this.settings = const FespContainerData(),
     required this.child,
+    this.margin = 8,
+    this.padding = 8,
   });
 
   @override
@@ -127,9 +131,15 @@ class FespContainer extends StatelessWidget {
   Widget _getContainer(double size) {
     return Align(
       alignment: Alignment.topCenter,
-      child: SizedBox(
-        width: size,
-        child: child,
+      child: Padding(
+        padding: EdgeInsets.all(margin),
+        child: SizedBox(
+          width: size,
+          child: Padding(
+            padding: EdgeInsets.all(padding),
+            child: child,
+          ),
+        ),
       ),
     );
   }

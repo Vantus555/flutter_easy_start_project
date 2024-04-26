@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_start_project/nodes/containers/fesp_vertical_tab_container.dart';
-import 'package:flutter_easy_start_project/nodes/fesp_list_searcher.dart';
-import 'package:flutter_easy_start_project/nodes/fesp_slide_up_panel.dart';
 import 'package:flutter_easy_start_project/pages/fesp_app.dart';
 import 'package:flutter_easy_start_project/nodes/containers/fesp_container.dart';
 import 'package:flutter_easy_start_project/pages/fesp_presentation_page.dart';
@@ -39,7 +37,7 @@ void main() {
               title: 'settings1',
               path: 'settings1',
               name: 'settings1',
-              builder: (context, state) => Text('settings1'),
+              builder: (context, state) => const Text('settings1'),
             ),
             FespNavItemData(
               icon: Icons.settings_outlined,
@@ -47,7 +45,7 @@ void main() {
               title: 'settings2',
               path: 'settings2',
               name: 'settings2',
-              builder: (context, state) => Text('settings2'),
+              builder: (context, state) => const Text('settings2'),
               // isEnable: false,
             ),
           ],
@@ -64,13 +62,8 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FespVerticalTabContainer(
       data: FespVerticalTabContainerData(
-        listSearchData: FespListSearcherData(
-          children: ['hello', 'find'],
-          onChange: (element, index, value) {
-            if (element.contains(value)) return Text(element);
-            return const SizedBox.shrink();
-          },
-        ),
+        titles: ['hello', 'find'],
+        children: const [Text('data'), Text('data2')],
       ),
     );
   }

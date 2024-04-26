@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
 class FespValueChangeProvider<T> extends ChangeNotifier {
-  T value;
+  late T _value;
 
-  FespValueChangeProvider({required this.value});
+  FespValueChangeProvider({
+    required T value,
+  }) {
+    _value = value;
+  }
 
   T getValue() {
-    return value;
+    return _value;
   }
 
   void setValue(T newValue) {
-    value = newValue;
+    _value = newValue;
     notifyListeners();
   }
 }

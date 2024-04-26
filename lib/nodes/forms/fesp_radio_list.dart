@@ -96,8 +96,8 @@ class MyAppRadioList extends StatelessWidget {
                 context,
                 $FespRadioListBuilderData(
                   value: key,
-                  selected: key == provider.value,
-                  groupValue: provider.value,
+                  selected: key == provider.getValue(),
+                  groupValue: provider.getValue(),
                   onChanged: (value) {
                     provider.setValue(value);
                     if (data.onChanged != null) {

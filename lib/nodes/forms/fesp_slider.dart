@@ -89,11 +89,11 @@ class FespSlider extends StatelessWidget {
                 divisions: initData.divisions,
                 min: initData.min,
                 max: initData.max,
-                value: provider.value,
-                label: provider.value.round().toString(),
+                value: provider.getValue(),
+                label: provider.getValue().round().toString(),
                 onChanged: (double value) {
                   if (initData.onChanged != null) {
-                    initData.onChanged!(provider.value);
+                    initData.onChanged!(provider.getValue());
                   }
                 },
               ),

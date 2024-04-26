@@ -61,7 +61,7 @@ class FespSwitch extends StatelessWidget {
         return data._$fespBuilder0(
           context,
           $FespSwitchBuilderData(
-            value: provider.value,
+            value: provider.getValue(),
             onChanged: (value) {
               provider.setValue(value);
               if (data.initData.onChanged != null) {

@@ -38,8 +38,8 @@ class FespDatePicker extends StatelessWidget {
 
         return FespTextField(
           data: FespTextFieldData(
-            initialValue: provider.value != null
-                ? DateFormat(dateFormat).format(provider.value!)
+            initialValue: provider.getValue() != null
+                ? DateFormat(dateFormat).format(provider.getValue()!)
                 : '',
             labelText: labelText,
             fespBuilder2: (controller, data) {

@@ -117,7 +117,7 @@ class MyAppSelector extends StatelessWidget {
                 labelText: data.labelText,
                 contentPadding: FESP_TEXT_INPUT_CONTENT_PADDING,
               ),
-              value: provider.value,
+              value: provider.getValue(),
               items: data.trueItems(context),
               onChanged: (value) {
                 provider.setValue(value);

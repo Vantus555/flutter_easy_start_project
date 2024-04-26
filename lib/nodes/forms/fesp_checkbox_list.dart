@@ -61,21 +61,20 @@ class FespCheckboxList extends StatelessWidget {
 
         data.values.forEach((key, value) {
           onLocalChanged(value) {
+            final val = provider.getValue();
             if (value!) {
-              provider.value.add(key);
-              // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-              provider.notifyListeners();
+              val.add(key);
+              provider.setValue(val.toList());
             } else {
-              provider.value.remove(key);
-              // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-              provider.notifyListeners();
+              val.remove(key);
+              provider.setValue(val.toList());
             }
             if (data.onChanged != null) {
-              data.onChanged!(provider.value);
+              data.onChanged!(provider.getValue());
             }
           }
 
-          final val = provider.value.contains(key);
+          final val = provider.getValue().contains(key);
 
           children.add(
             data._$fespBuilder0(
