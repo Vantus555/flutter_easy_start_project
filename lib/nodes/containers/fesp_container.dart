@@ -35,6 +35,7 @@ class FespContainer extends StatelessWidget {
   final Widget child;
   final double padding;
   final double margin;
+  final double? height;
 
   const FespContainer({
     super.key,
@@ -42,6 +43,7 @@ class FespContainer extends StatelessWidget {
     required this.child,
     this.margin = 8,
     this.padding = 8,
+    this.height,
   });
 
   @override
@@ -135,6 +137,7 @@ class FespContainer extends StatelessWidget {
         padding: EdgeInsets.all(margin),
         child: SizedBox(
           width: size,
+          height: height,
           child: Padding(
             padding: EdgeInsets.all(padding),
             child: child,

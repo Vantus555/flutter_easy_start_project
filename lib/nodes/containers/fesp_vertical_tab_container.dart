@@ -29,18 +29,18 @@ class FespVerticalTabContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = _List(titles: data.titles);
-    final content = _Content(children: data.children);
-
     return ChangeNotifierProvider(
       create: (context) => _providerType(value: 0),
       builder: (context, child) {
+        final list = _List(titles: data.titles, ctx: context);
+        final content = _Content(children: data.children);
+
         return FespResponsiveLayout(
           parent: false,
           md: FespSlideUpPanel(
-            collapse: const Text('collapse'),
-            body: content,
+            collapseArea: const Text('collapse'),
             collapseChild: list,
+            child: content,
           ),
           lg: Row(
             children: [
@@ -61,8 +61,11 @@ class FespVerticalTabContainer extends StatelessWidget {
 
 class _List extends StatelessWidget {
   final List<String> titles;
+  final BuildContext ctx;
+
   const _List({
     required this.titles,
+    required this.ctx,
   });
 
   @override
@@ -75,6 +78,7 @@ class _List extends StatelessWidget {
             return _Button(
               text: element,
               index: index,
+              ctx: ctx,
             );
           }
           return const SizedBox.shrink();
@@ -87,15 +91,17 @@ class _List extends StatelessWidget {
 class _Button extends StatelessWidget {
   final int index;
   final String text;
+  final BuildContext ctx;
 
   const _Button({
     required this.text,
     required this.index,
+    required this.ctx,
   });
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<_providerType>();
+    final provider = ctx.watch<_providerType>();
 
     Widget child;
     click() => provider.setValue(index);

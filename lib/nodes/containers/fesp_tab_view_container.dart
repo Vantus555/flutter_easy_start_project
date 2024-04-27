@@ -53,7 +53,7 @@ class _FespTabViewContainerState extends State<FespTabViewContainer>
       children: [
         Container(
           width: double.infinity,
-          color: TAB_BAR_DEFAULT_COLOR(context),
+          color: FESP_TAB_BAR_COLOR(context),
           child: Center(
             child: TabBar(
               isScrollable: true,
