@@ -62,7 +62,10 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FespVerticalTabContainer(
       data: FespVerticalTabContainerData(
-        titles: ['hello', 'find'],
+        titles: [
+          'hello',
+          'find',
+        ],
         children: const [Text('data'), Text('data2')],
       ),
     );

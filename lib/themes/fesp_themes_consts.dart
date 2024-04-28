@@ -15,7 +15,8 @@ const double FESP_MATERIAL_ELEVATION = 6;
 const FESP_TILE_PADDING = EdgeInsets.all(5);
 const FESP_CHILDREN_PADDING = EdgeInsets.all(10);
 
-FESP_SHADOW_COLOR(context) => Theme.of(context).primaryColor;
-FESP_ACTIVE_COLOR(context) => Theme.of(context).focusColor;
-FESP_EXPANSION_COLOR(context) => FESP_ACTIVE_COLOR(context);
-FESP_TAB_BAR_COLOR(context) => Theme.of(context).appBarTheme.backgroundColor;
+Color FESP_SHADOW_COLOR(context) => Theme.of(context).primaryColor;
+Color FESP_ACTIVE_COLOR(context) => Theme.of(context).focusColor;
+Color FESP_EXPANSION_COLOR(context) => FESP_ACTIVE_COLOR(context);
+Color? FESP_TAB_BAR_COLOR(context) =>
+    Theme.of(context).appBarTheme.backgroundColor;

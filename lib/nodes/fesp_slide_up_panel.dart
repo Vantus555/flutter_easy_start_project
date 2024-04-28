@@ -7,15 +7,15 @@ class FespSlideUpPanel extends StatefulWidget {
   final Widget child;
   final Widget collapseArea;
   final Widget collapseChild;
-  final double collapseGestureHeight;
-  final double collapseChildHeight;
+  final double collapseGestureHeightRatio;
+  final double collapseChildHeightRatio;
   final int milliseconds;
   final double sensitivity;
 
   const FespSlideUpPanel({
     super.key,
-    this.collapseGestureHeight = 0.1,
-    this.collapseChildHeight = 0.9,
+    this.collapseGestureHeightRatio = 0.07,
+    this.collapseChildHeightRatio = 1,
     this.milliseconds = 300,
     this.sensitivity = 20,
     required this.collapseArea,
@@ -47,7 +47,7 @@ class _FespSlideUpPanelState extends State<FespSlideUpPanel>
     if (isOpen && direct && !isAnimated) {
       _ac.animateBack(0);
     } else if (!isOpen && !direct && !isAnimated) {
-      _ac.animateTo(widget.collapseChildHeight + widget.collapseGestureHeight);
+      _ac.animateTo(1);
     }
     isOpen = !isOpen;
   }
@@ -59,38 +59,63 @@ class _FespSlideUpPanelState extends State<FespSlideUpPanel>
         return Stack(
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: widget.collapseGestureHeight),
+              padding: EdgeInsets.only(
+                bottom: widget.collapseGestureHeightRatio,
+              ),
               child: widget.child,
             ),
-            _getMainArea(constraints),
+            _getCollapseArea(constraints),
+            _getCollapseChild(constraints),
           ],
         );
       },
     );
   }
 
-  Widget _getMainArea(BoxConstraints constraints) {
+  double _getCollapseGestureHeight(BoxConstraints constraints) {
+    return widget.collapseGestureHeightRatio * constraints.maxHeight;
+  }
+
+  double _getCollapseChildHeight(BoxConstraints constraints) {
+    return widget.collapseChildHeightRatio * constraints.maxHeight;
+  }
+
+  double _getAnimationHeight(BoxConstraints constraints) {
+    return _ac.value *
+        widget.collapseChildHeightRatio *
+        (constraints.maxHeight - _getCollapseGestureHeight(constraints));
+  }
+
+  Widget _getCollapseArea(BoxConstraints constraints) {
     return AnimatedBuilder(
       animation: _ac,
       builder: (context, child) {
-        final height = widget.collapseGestureHeight * constraints.maxWidth +
-            (_ac.value * widget.collapseChildHeight * constraints.maxWidth);
         if (_ac.value == 0 || _ac.value == 1) {
           isAnimated = false;
         } else {
           isAnimated = true;
         }
         return Positioned(
-          bottom: 0,
-          child: Container(
-            width: constraints.maxWidth,
-            height: height,
-            color: FESP_ACTIVE_COLOR(context),
-            child: Wrap(
-              children: [
-                _getCollapseArea(constraints),
-                _getCollapseChild(constraints),
-              ],
+          bottom: _getAnimationHeight(constraints),
+          child: GestureDetector(
+            onVerticalDragUpdate: (details) {
+              if (details.delta.dy < -widget.sensitivity) {
+                _toogleAnimate(false);
+              } else if (details.delta.dy > widget.sensitivity) {
+                _toogleAnimate(true);
+              }
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(SLIDE_PANEL_BORDER_RADIUS),
+                  topRight: Radius.circular(SLIDE_PANEL_BORDER_RADIUS),
+                ),
+                color: Color.fromARGB(255, 52, 50, 50),
+              ),
+              width: constraints.maxWidth,
+              height: _getCollapseGestureHeight(constraints),
+              child: Center(child: widget.collapseArea),
             ),
           ),
         );
@@ -98,28 +123,24 @@ class _FespSlideUpPanelState extends State<FespSlideUpPanel>
     );
   }
 
-  Widget _getCollapseArea(BoxConstraints constraints) {
-    return GestureDetector(
-      onVerticalDragUpdate: (details) {
-        if (details.delta.dy < -widget.sensitivity) {
-          _toogleAnimate(false);
-        } else if (details.delta.dy > widget.sensitivity) {
-          _toogleAnimate(true);
-        }
-      },
-      child: Container(
-        color: FESP_ACTIVE_COLOR(context),
-        width: constraints.maxWidth,
-        height: widget.collapseGestureHeight * constraints.maxHeight,
-        child: Center(child: widget.collapseArea),
-      ),
-    );
-  }
-
   Widget _getCollapseChild(BoxConstraints constraints) {
-    return Container(
-      height: widget.collapseChildHeight * constraints.maxHeight,
-      child: FespContainer(child: widget.collapseChild),
+    return AnimatedBuilder(
+      animation: _ac,
+      builder: (context, child) {
+        final height = -_getCollapseChildHeight(constraints) +
+            _getAnimationHeight(constraints);
+        return Positioned(
+          bottom: height,
+          child: Container(
+            color: FESP_TAB_BAR_COLOR(context),
+            width: constraints.maxWidth,
+            height: _getCollapseChildHeight(constraints),
+            child: FespContainer(
+              child: widget.collapseChild,
+            ),
+          ),
+        );
+      },
     );
   }
 }
