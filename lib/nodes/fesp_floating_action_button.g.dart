@@ -18,6 +18,7 @@ class $FespFloatingActionButtonBuilderData {
     required this.mini,
     required this.shape,
   });
+  // ignore: unused_element
   $FespFloatingActionButtonBuilderData copyWith({
     Widget? child,
     void Function()? onPressed,
@@ -61,6 +62,7 @@ class _$FespFloatingActionButtonData {
 }
 
 extension on FespFloatingActionButtonData {
+  // ignore: unused_element
   FespFloatingActionButtonData copyWith({
     final FloatingActionButton Function(
       BuildContext p0,

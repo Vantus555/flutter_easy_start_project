@@ -32,7 +32,7 @@ class FespBasePage extends StatelessWidget {
         scrolledUnderElevation: 0,
       ),
       body: FespContainer(
-        settings: provider.data.mainContainerData,
+        data: provider.data.mainContainerData,
         child: child,
       ),
     );

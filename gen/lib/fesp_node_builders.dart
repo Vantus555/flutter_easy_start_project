@@ -206,7 +206,25 @@ class FespNodeBuildersGenerator
       customFieldsString.add(element.key);
     }
 
-    for (var element in builder.classFields) {
+    // by position
+    final list = builder.classFields
+        .where(
+          (element) => element.position != null,
+        )
+        .toList();
+
+    list.sort(
+      (a, b) => a.position! > b.position! ? a.position! : b.position!,
+    );
+    for (var element in list) {
+      final name = element.name;
+      res = 'p$length.$name,' + res;
+    }
+
+    // by name
+    for (var element in builder.classFields.where(
+      (element) => element.position == null,
+    )) {
       final name = element.name;
       if (!customFieldsString.contains(name)) {
         res = '$name: p$length.$name,' + res;

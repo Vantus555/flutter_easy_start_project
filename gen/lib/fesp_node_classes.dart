@@ -35,11 +35,13 @@ class FespNodeBuilderClassField {
   final String type;
   final String name;
   final String defaultValue;
+  final int? position;
 
   const FespNodeBuilderClassField({
     required this.type,
     required this.name,
     this.defaultValue = '',
+    this.position,
   });
 
   factory FespNodeBuilderClassField.obj(DartObject e) {
@@ -47,6 +49,7 @@ class FespNodeBuilderClassField {
       name: e.getField('name')!.toStringValue()!,
       type: e.getField('type')!.toStringValue()!,
       defaultValue: e.getField('defaultValue')!.toStringValue()!,
+      position: e.getField('position')!.toIntValue(),
     );
   }
 }

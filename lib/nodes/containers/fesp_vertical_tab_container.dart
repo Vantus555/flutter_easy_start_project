@@ -49,7 +49,9 @@ class FespVerticalTabContainer extends StatelessWidget {
               ),
               Expanded(
                 flex: 3,
-                child: content,
+                child: Container(
+                  child: content,
+                ),
               ),
             ],
           ),

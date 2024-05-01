@@ -16,6 +16,7 @@ class $FespCheckboxListBuilderData {
     required this.value,
     required this.onChanged,
   });
+  // ignore: unused_element
   $FespCheckboxListBuilderData copyWith({
     Widget? title,
     bool? value,
@@ -56,6 +57,7 @@ class _$FespCheckboxListData {
 }
 
 extension on FespCheckboxListData {
+  // ignore: unused_element
   FespCheckboxListData copyWith({
     final CheckboxListTile Function(
       BuildContext p0,

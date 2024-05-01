@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy_start_project/nodes/containers/fesp_vertical_tab_container.dart';
 import 'package:flutter_easy_start_project/pages/fesp_app.dart';
 import 'package:flutter_easy_start_project/nodes/containers/fesp_container.dart';
-import 'package:flutter_easy_start_project/pages/fesp_presentation_page.dart';
+import 'package:flutter_easy_start_project/pages/presentation/fesp_presentation_page.dart';
 import 'package:flutter_easy_start_project/structs/fesp_app_data.dart';
 import 'package:flutter_easy_start_project/structs/fesp_nav_item_data.dart';
 
@@ -60,14 +60,6 @@ class MyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FespVerticalTabContainer(
-      data: FespVerticalTabContainerData(
-        titles: [
-          'hello',
-          'find',
-        ],
-        children: const [Text('data'), Text('data2')],
-      ),
-    );
+    return Text('data');
   }
 }

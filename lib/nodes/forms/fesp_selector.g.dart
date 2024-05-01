@@ -20,6 +20,7 @@ class $FespSelectorBuilderData {
     required this.items,
     this.onChanged,
   });
+  // ignore: unused_element
   $FespSelectorBuilderData copyWith({
     bool? isExpanded,
     InputDecoration? decoration,
@@ -45,6 +46,7 @@ class $FespDropdownMenuItemBuilderData {
     required this.child,
     required this.value,
   });
+  // ignore: unused_element
   $FespDropdownMenuItemBuilderData copyWith({
     Widget? child,
     Object? value,
@@ -105,6 +107,7 @@ class _$FespSelector {
 }
 
 extension on FespSelector {
+  // ignore: unused_element
   FespSelector copyWith({
     final DropdownButtonFormField Function(
       BuildContext p0,

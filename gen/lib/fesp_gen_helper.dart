@@ -93,7 +93,7 @@ $typeClass $className $inherit {
     code.write(');');
 
     return createFunc(
-      returns: className,
+      returns: '// ignore: unused_element\n' + className,
       name: 'copyWith',
       args: args.toString(),
       code: code.toString(),

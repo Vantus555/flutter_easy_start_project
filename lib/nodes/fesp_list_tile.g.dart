@@ -20,6 +20,7 @@ class $FespListTileBuilderData {
     required this.shape,
     this.onTap,
   });
+  // ignore: unused_element
   $FespListTileBuilderData copyWith({
     Widget? title,
     Widget? leading,
@@ -66,6 +67,7 @@ class _$FespListTileData {
 }
 
 extension on FespListTileData {
+  // ignore: unused_element
   FespListTileData copyWith({
     final ListTile Function(
       BuildContext p0,

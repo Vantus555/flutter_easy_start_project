@@ -22,6 +22,7 @@ class $FespSliderBuilderData {
     required this.label,
     this.onChanged,
   });
+  // ignore: unused_element
   $FespSliderBuilderData copyWith({
     int? divisions,
     double? min,
@@ -71,6 +72,7 @@ class _$FespSlideData {
 }
 
 extension on FespSlideData {
+  // ignore: unused_element
   FespSlideData copyWith({
     final Slider Function(
       BuildContext p0,

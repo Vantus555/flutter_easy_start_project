@@ -14,6 +14,7 @@ class $FespMenuAnchorBuilderData {
     required this.builder,
     required this.menuChildren,
   });
+  // ignore: unused_element
   $FespMenuAnchorBuilderData copyWith({
     Widget Function(BuildContext, MenuController, Widget?)? builder,
     List<Widget>? menuChildren,
@@ -33,6 +34,7 @@ class $FespMenuItemButtonData {
     required this.child,
     required this.onPressed,
   });
+  // ignore: unused_element
   $FespMenuItemButtonData copyWith({
     Widget? child,
     void Function()? onPressed,
@@ -90,6 +92,7 @@ class _$FespPopupMenuData {
 }
 
 extension on FespPopupMenuData {
+  // ignore: unused_element
   FespPopupMenuData copyWith({
     final MenuAnchor Function(
       BuildContext p0,

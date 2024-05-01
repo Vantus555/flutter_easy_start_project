@@ -16,6 +16,7 @@ class $FespTextFieldFocusBuilderData {
     required this.focusNode,
     required this.child,
   });
+  // ignore: unused_element
   $FespTextFieldFocusBuilderData copyWith({
     Function(bool)? onFocusChange,
     $FespTextFieldFocusNodeBuilderData? focusNode,
@@ -35,6 +36,7 @@ class $FespTextFieldFocusNodeBuilderData {
   const $FespTextFieldFocusNodeBuilderData({
     required this.canRequestFocus,
   });
+  // ignore: unused_element
   $FespTextFieldFocusNodeBuilderData copyWith({
     bool? canRequestFocus,
   }) {
@@ -56,6 +58,7 @@ class $FespTextFieldBuilderData {
     this.inputFormatters,
     required this.decoration,
   });
+  // ignore: unused_element
   $FespTextFieldBuilderData copyWith({
     TextEditingController? controller,
     bool? obscureText,
@@ -139,6 +142,7 @@ class _$FespTextFieldData {
 }
 
 extension on FespTextFieldData {
+  // ignore: unused_element
   FespTextFieldData copyWith({
     final Focus Function(
       BuildContext p0,

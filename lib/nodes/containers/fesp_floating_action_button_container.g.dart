@@ -12,6 +12,7 @@ class $FespFloatingContainerBuilderData {
   const $FespFloatingContainerBuilderData({
     required this.child,
   });
+  // ignore: unused_element
   $FespFloatingContainerBuilderData copyWith({
     Widget? child,
   }) {
@@ -46,6 +47,7 @@ class _$FespFloatingActionButtonContainerData {
 }
 
 extension on FespFloatingActionButtonContainerData {
+  // ignore: unused_element
   FespFloatingActionButtonContainerData copyWith({
     final FespContainer Function(
       BuildContext p0,

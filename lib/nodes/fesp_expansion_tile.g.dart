@@ -22,6 +22,7 @@ class $FespExpansionTileBuilderData {
     required this.title,
     required this.backgroundColor,
   });
+  // ignore: unused_element
   $FespExpansionTileBuilderData copyWith({
     List<Widget>? children,
     CrossAxisAlignment? expandedCrossAxisAlignment,
@@ -72,6 +73,7 @@ class _$FespExpansionTileData {
 }
 
 extension on FespExpansionTileData {
+  // ignore: unused_element
   FespExpansionTileData copyWith({
     final ExpansionTile Function(
       BuildContext p0,

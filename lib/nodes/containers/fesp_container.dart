@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy_start_project/nodes/fesp_responsive_layout.dart';
 import 'package:flutter_easy_start_project/structs/fesp_responsive_layout_data.dart';
 import 'package:flutter_easy_start_project/view_models/fesp_app_providesr.dart';
+import 'package:flutter_easy_start_project_generator/fesp_node_classes.dart';
 import 'package:provider/provider.dart';
+
+part 'fesp_container.g.dart';
 
 enum FespContainerSize {
   FILL,
@@ -20,44 +23,72 @@ enum FespContainerType {
   FIXED,
 }
 
-class FespContainerData {
+@FespNodeBuildersA(
+  builders: [
+    FespNodeBuilderField(
+      className: 'FespContainerBuilderData',
+      returnType: 'Container',
+      classFields: [
+        FespNodeBuilderClassField(
+          type: 'Widget',
+          name: 'child',
+        ),
+        FespNodeBuilderClassField(
+          type: 'double',
+          name: 'width',
+        ),
+        FespNodeBuilderClassField(
+          type: 'double?',
+          name: 'height',
+        ),
+      ],
+    ),
+  ],
+)
+class FespContainerData extends _$FespContainerData {
   final FespContainerSize size;
   final FespContainerType type;
-
-  const FespContainerData({
-    this.size = FespContainerSize.FILL,
-    this.type = FespContainerType.USUAL,
-  });
-}
-
-class FespContainer extends StatelessWidget {
-  final FespContainerData settings;
-  final Widget child;
   final double padding;
   final double margin;
   final double? height;
 
-  const FespContainer({
-    super.key,
-    this.settings = const FespContainerData(),
-    required this.child,
+  const FespContainerData({
+    this.size = FespContainerSize.FILL,
+    this.type = FespContainerType.USUAL,
     this.margin = 8,
     this.padding = 8,
     this.height,
+    super.fespBuilder0,
+  });
+}
+
+class FespContainer extends StatefulWidget {
+  final FespContainerData data;
+  final Widget? child;
+
+  const FespContainer({
+    super.key,
+    this.data = const FespContainerData(),
+    this.child,
   });
 
+  @override
+  State<FespContainer> createState() => _FespContainerState();
+}
+
+class _FespContainerState extends State<FespContainer> {
   @override
   Widget build(BuildContext context) {
     final layouts = context.read<FespAppProvider>().data.responsiveData;
 
-    if (settings.type == FespContainerType.FIXED) {
+    if (widget.data.type == FespContainerType.FIXED) {
       return _getFixed(layouts);
     }
     return _getUsual(layouts);
   }
 
   Widget _getFixed(FespResponsiveLayoutData layouts) {
-    switch (settings.size) {
+    switch (widget.data.size) {
       case FespContainerSize.XXL:
         return FespResponsiveLayout(
           xl: _getContainer(double.infinity),
@@ -89,7 +120,7 @@ class FespContainer extends StatelessWidget {
   }
 
   Widget _getUsual(FespResponsiveLayoutData layouts) {
-    switch (settings.size) {
+    switch (widget.data.size) {
       case FespContainerSize.XXL:
         return FespResponsiveLayout(
           xl: _getContainer(double.infinity),
@@ -134,13 +165,17 @@ class FespContainer extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Padding(
-        padding: EdgeInsets.all(margin),
-        child: SizedBox(
-          width: size,
-          height: height,
-          child: Padding(
-            padding: EdgeInsets.all(padding),
-            child: child,
+        padding: EdgeInsets.all(widget.data.margin),
+        // ignore: sized_box_for_whitespace
+        child: widget.data._$fespBuilder0(
+          context,
+          $FespContainerBuilderData(
+            child: Padding(
+              padding: EdgeInsets.all(widget.data.padding),
+              child: widget.child,
+            ),
+            width: size,
+            height: widget.data.height,
           ),
         ),
       ),

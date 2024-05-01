@@ -28,6 +28,7 @@ class $FespRadioListBuilderData {
     this.visualDensity,
     this.shape,
   });
+  // ignore: unused_element
   $FespRadioListBuilderData copyWith({
     Object? value,
     Object? groupValue,
@@ -86,6 +87,7 @@ class _$FespRadioListBuilderData {
 }
 
 extension on FespRadioListBuilderData {
+  // ignore: unused_element
   FespRadioListBuilderData copyWith({
     final RadioListTile Function(
       BuildContext p0,

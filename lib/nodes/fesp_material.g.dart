@@ -18,6 +18,7 @@ class $FespMaterialBuilderData {
     required this.elevation,
     required this.shadowColor,
   });
+  // ignore: unused_element
   $FespMaterialBuilderData copyWith({
     Widget? child,
     BorderRadius? borderRadius,
@@ -61,6 +62,7 @@ class _$FespMaterialData {
 }
 
 extension on FespMaterialData {
+  // ignore: unused_element
   FespMaterialData copyWith({
     final Material Function(
       BuildContext p0,
