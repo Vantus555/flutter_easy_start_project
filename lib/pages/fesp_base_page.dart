@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_start_project/nav/fesp_local_nav.dart';
 import 'package:flutter_easy_start_project/nodes/containers/fesp_container.dart';
-import 'package:flutter_easy_start_project/nodes/fesp_theme_tggler.dart';
+import 'package:flutter_easy_start_project/nodes/fesp_theme_toggler.dart';
 import 'package:flutter_easy_start_project/structs/fesp_nav_item_data.dart';
 import 'package:flutter_easy_start_project/view_models/fesp_app_providesr.dart';
 import 'package:provider/provider.dart';

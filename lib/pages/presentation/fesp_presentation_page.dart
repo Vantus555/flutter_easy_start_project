@@ -11,7 +11,8 @@ class FespPresentationPage extends StatelessWidget {
     return FespVerticalTabContainer(
       data: FespVerticalTabContainerData(
         titles: [
-          'hello',
+          'about',
+          // 'quick start',
           'container',
         ],
         children: const [

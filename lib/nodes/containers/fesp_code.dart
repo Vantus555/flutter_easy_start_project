@@ -13,7 +13,6 @@ class FespCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FespContainer(
-      child: FespText(text: text),
       data: FespContainerData(
         padding: 10,
         fespBuilder0: (p0, p1) {
@@ -24,12 +23,13 @@ class FespCode extends StatelessWidget {
               borderRadius: const BorderRadius.all(
                 Radius.circular(SLIDE_PANEL_BORDER_RADIUS),
               ),
-              color: Color.fromARGB(255, 52, 50, 50),
+              color: FESP_ACTIVE_COLOR(p0),
             ),
             child: p1.child,
           );
         },
       ),
+      child: FespText(text: text),
     );
   }
 }

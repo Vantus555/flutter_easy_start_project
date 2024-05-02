@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easy_start_project/nodes/containers/fesp_container.dart';
@@ -57,12 +58,15 @@ class _FespSlideUpPanelState extends State<FespSlideUpPanel>
     return LayoutBuilder(
       builder: (context, constraints) {
         return Stack(
+          fit: StackFit.expand,
           children: [
-            Padding(
-              padding: EdgeInsets.only(
-                bottom: widget.collapseGestureHeightRatio,
+            SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: _getCollapseGestureHeight(constraints),
+                ),
+                child: widget.child,
               ),
-              child: widget.child,
             ),
             _getCollapseArea(constraints),
             _getCollapseChild(constraints),
@@ -106,8 +110,8 @@ class _FespSlideUpPanelState extends State<FespSlideUpPanel>
               }
             },
             child: Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(SLIDE_PANEL_BORDER_RADIUS),
                   topRight: Radius.circular(SLIDE_PANEL_BORDER_RADIUS),
                 ),

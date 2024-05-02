@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_start_project_generator/fesp_node_classes.dart';
 part 'fesp_text.g.dart';
@@ -31,9 +30,11 @@ part 'fesp_text.g.dart';
 )
 class FespTextData extends _$FespTextData {
   final bool isSelectable;
+  final double padding;
 
   const FespTextData({
     this.isSelectable = true,
+    this.padding = 5,
     super.fespBuilder0,
     super.fespBuilder1,
   });
@@ -51,15 +52,25 @@ class FespText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget child;
     if (data.isSelectable) {
-      return data._$fespBuilder1(
+      child = data._$fespBuilder1(
         context,
         $FespSelectableTextBuilderData(text: text),
       );
+    } else {
+      child = data._$fespBuilder0(
+        context,
+        $FespTextBuilderData(text: text),
+      );
     }
-    return data._$fespBuilder0(
-      context,
-      $FespTextBuilderData(text: text),
+
+    return Padding(
+      padding: EdgeInsets.only(
+        top: data.padding,
+        bottom: data.padding,
+      ),
+      child: child,
     );
   }
 }

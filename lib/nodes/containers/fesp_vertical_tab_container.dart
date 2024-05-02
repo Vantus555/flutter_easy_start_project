@@ -43,15 +43,14 @@ class FespVerticalTabContainer extends StatelessWidget {
             child: content,
           ),
           lg: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: list,
               ),
               Expanded(
                 flex: 3,
-                child: Container(
-                  child: content,
-                ),
+                child: SingleChildScrollView(child: content),
               ),
             ],
           ),
