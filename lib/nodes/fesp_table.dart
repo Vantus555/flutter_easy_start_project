@@ -1,7 +1,13 @@
+import 'dart:html';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_start_project/nodes/fesp_multi_scroll.dart';
 import 'package:flutter_easy_start_project/themes/fesp_themes_consts.dart';
+import 'package:flutter_easy_start_project/view_models/fesp_value_change_provider.dart';
+import 'package:provider/provider.dart';
+
+// ignore: camel_case_types
+typedef _providerType = FespValueChangeProvider<FespTableData>;
 
 class MyAppTableDictContainer {
   final String title;
@@ -20,190 +26,201 @@ class MyAppTableDictContainer {
   }
 }
 
-class FespTable extends StatelessWidget {
-  final Widget emptyCell;
-  final Widget firstCell;
-  final double width;
-  final double? height;
-  final List<Widget>? horizontalHeaders;
-  final List<Widget>? verticalHeaders;
-  final List<List<Widget>> items;
-  final Alignment horizontalAlignment;
-  final TableCellVerticalAlignment verticalAlignment;
+class FespTableData {
+  final String emptyCell;
+  final String firstCell;
 
-  static const Widget _emptyCell = Text('-');
-  static const Widget _firstCell = Text('');
-  static const Alignment _horizontalAlignment = Alignment.center;
-  static const TableCellVerticalAlignment _verticalAlignment =
-      TableCellVerticalAlignment.top;
-  static const double _width = 250;
+  final List<String>? horizontalHeaders;
+  final List<String>? verticalHeaders;
+
+  final double rowHeight = 45;
+  final double? Function(int index)? rowHeightByIndex;
+
+  final double cellWidth = 100;
+  final double? Function(int x, int y)? cellWidthByIndex;
+
+  final List<List<String>> items;
+  final Widget Function(String item, int x, int y) builder;
+
+  FespTableData({
+    this.emptyCell = '-',
+    this.firstCell = '',
+    this.horizontalHeaders,
+    this.verticalHeaders,
+    this.rowHeightByIndex,
+    this.cellWidthByIndex,
+    required this.items,
+    required this.builder,
+  });
+}
+
+class FespTable extends StatelessWidget {
+  final FespTableData data;
 
   const FespTable({
     super.key,
-    this.emptyCell = _emptyCell,
-    this.firstCell = _firstCell,
-    this.width = _width,
-    this.height,
-    this.verticalHeaders,
-    this.horizontalHeaders,
-    required this.items,
-    this.horizontalAlignment = _horizontalAlignment,
-    this.verticalAlignment = _verticalAlignment,
+    required this.data,
   });
 
-  factory FespTable.fromDict({
-    Key? key,
-    final Widget emptyCell = _emptyCell,
-    final Widget firstCell = _firstCell,
-    final double width = _width,
-    final double? height,
-    required final Map<MyAppTableDictContainer,
-            Map<MyAppTableDictContainer, Widget>>
-        items,
-    final finishedTable = false,
-    final Alignment horizontalAlignment = _horizontalAlignment,
-    final TableCellVerticalAlignment verticalAlignment = _verticalAlignment,
-  }) {
-    final verticalData = items.values.map((e) => e.keys).toList();
-    List<String> verticalHeadersString = [];
-    List<Widget> verticalHeaders = [];
+  // factory FespTable.fromDict({
+  //   Key? key,
+  //   required final Map<MyAppTableDictContainer,
+  //           Map<MyAppTableDictContainer, Widget>>
+  //       items,
+  //   final finishedTable = false,
+  // }) {
+  //   final verticalData = items.values.map((e) => e.keys).toList();
+  //   List<String> verticalHeadersString = [];
+  //   List<Widget> verticalHeaders = [];
 
-    for (var e in verticalData) {
-      if (verticalHeaders.isEmpty) {
-        verticalHeadersString = e.map((e) => e.title).toList();
-        verticalHeaders = e.map((e) => e.value).toList();
-        continue;
-      }
-      for (var element in e) {
-        if (!verticalHeadersString.contains(element.title)) {
-          verticalHeadersString.add(element.title);
-          verticalHeaders.add(element.value);
-        }
-      }
-    }
+  //   for (var e in verticalData) {
+  //     if (verticalHeaders.isEmpty) {
+  //       verticalHeadersString = e.map((e) => e.title).toList();
+  //       verticalHeaders = e.map((e) => e.value).toList();
+  //       continue;
+  //     }
+  //     for (var element in e) {
+  //       if (!verticalHeadersString.contains(element.title)) {
+  //         verticalHeadersString.add(element.title);
+  //         verticalHeaders.add(element.value);
+  //       }
+  //     }
+  //   }
 
-    List<String> horizontalHeadersString = [];
-    List<Widget> horizontalHeaders = [];
+  //   List<String> horizontalHeadersString = [];
+  //   List<Widget> horizontalHeaders = [];
 
-    for (var element in items.keys) {
-      final found = horizontalHeadersString.where(
-        (e) => e == element.title,
-      );
+  //   for (var element in items.keys) {
+  //     final found = horizontalHeadersString.where(
+  //       (e) => e == element.title,
+  //     );
 
-      if (found.isEmpty) {
-        horizontalHeadersString.add(element.title);
-        horizontalHeaders.add(element.value);
-      }
-    }
+  //     if (found.isEmpty) {
+  //       horizontalHeadersString.add(element.title);
+  //       horizontalHeaders.add(element.value);
+  //     }
+  //   }
 
-    List<List<Widget>> newItems = [];
+  //   List<List<Widget>> newItems = [];
 
-    if (!finishedTable) {
-      for (var vertical in verticalHeadersString) {
-        List<Widget> objs = [];
-        for (var horizontal in items.entries) {
-          final found = horizontal.value.entries
-              .where((element) => element.key.title == vertical)
-              .toList();
-          if (found.isEmpty) {
-            objs.add(const Text('-'));
-            continue;
-          }
-          objs.add(found[0].value);
-        }
-        newItems.add(objs);
-      }
-    } else {
-      for (var horizontal in items.entries) {
-        newItems.add(horizontal.value.entries.map((e) => e.value).toList());
-      }
-    }
+  //   if (!finishedTable) {
+  //     for (var vertical in verticalHeadersString) {
+  //       List<Widget> objs = [];
+  //       for (var horizontal in items.entries) {
+  //         final found = horizontal.value.entries
+  //             .where((element) => element.key.title == vertical)
+  //             .toList();
+  //         if (found.isEmpty) {
+  //           objs.add(const Text('-'));
+  //           continue;
+  //         }
+  //         objs.add(found[0].value);
+  //       }
+  //       newItems.add(objs);
+  //     }
+  //   } else {
+  //     for (var horizontal in items.entries) {
+  //       newItems.add(horizontal.value.entries.map((e) => e.value).toList());
+  //     }
+  //   }
 
-    return FespTable(
-      key: key,
-      emptyCell: emptyCell,
-      firstCell: firstCell,
-      width: width,
-      height: height,
-      verticalHeaders: verticalHeaders,
-      horizontalHeaders: horizontalHeaders,
-      items: newItems,
-      horizontalAlignment: horizontalAlignment,
-      verticalAlignment: verticalAlignment,
-    );
-  }
+  //   return FespTable(
+  //     key: key,
+  //     emptyCell: emptyCell,
+  //     firstCell: firstCell,
+  //     width: width,
+  //     height: height,
+  //     verticalHeaders: verticalHeaders,
+  //     horizontalHeaders: horizontalHeaders,
+  //     items: newItems,
+  //     horizontalAlignment: horizontalAlignment,
+  //     verticalAlignment: verticalAlignment,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
-    List<TableRow> children = [];
+    return ChangeNotifierProvider(
+      create: (context) => _providerType(value: data),
+      builder: (context, child) {
+        List<Widget> children = [];
 
-    children.addAll(_getHorizontalHeaders());
-    children.addAll(_getRows());
+        children.addAll(_getHorizontalHeaders());
+        children.addAll(_getRows());
 
-    return FespMultiScroll(
-      child: Table(
-        defaultColumnWidth: FixedColumnWidth(width),
-        border: TableBorder.all(
-          color: FESP_ACTIVE_COLOR(context),
-        ),
-        children: children,
-      ),
+        return FespMultiScroll(
+          child: Column(
+            children: children,
+          ),
+        );
+      },
     );
   }
 
-  List<TableRow> _getHorizontalHeaders() {
+  List<Widget> _getHorizontalHeaders() {
     List<_Cell> headers = [];
 
-    if (horizontalHeaders != null && verticalHeaders != null) {
-      _addCell(headers, firstCell);
+    // firstCell
+    if (data.horizontalHeaders != null && data.verticalHeaders != null) {
+      headers.add(_Cell(child: data.firstCell, x: 0, y: 0));
     }
-    if (horizontalHeaders != null) {
+
+    // Othe cells
+    if (data.horizontalHeaders != null) {
       final maxCount = _getHorizontalMaxCount();
 
       for (var i = 0; i < maxCount; i++) {
-        if (i + 1 > horizontalHeaders!.length) {
-          _addCell(headers, emptyCell);
+        if (i + 1 > data.horizontalHeaders!.length) {
+          headers.add(_Cell(child: data.emptyCell, x: 0, y: i + 1));
           continue;
         }
-        _addCell(headers, horizontalHeaders![i]);
+        headers.add(_Cell(child: data.horizontalHeaders![i], x: 0, y: i + 1));
       }
     }
 
     if (headers.isEmpty) {
       return [];
     }
-    return [TableRow(children: headers)];
+    return [_Row(index: 0, children: headers)];
   }
 
-  List<TableRow> _getRows() {
-    List<TableRow> rows = [];
+  List<_Row> _getRows() {
+    List<_Row> rows = [];
 
-    if (verticalHeaders != null) {
-      final verticalMaxCount = _getVerticalMaxCount();
+    final verticalMaxCount = _getVerticalMaxCount();
 
-      for (var i = 0; i < verticalMaxCount; i++) {
-        List<_Cell> widgets = [];
-        if (i < verticalHeaders!.length) {
-          _addCell(widgets, verticalHeaders![i]);
+    for (var i = 0; i < verticalMaxCount; i++) {
+      List<_Cell> cells = [];
+
+      // vertical header
+      if (data.verticalHeaders != null) {
+        if (i < data.verticalHeaders!.length) {
+          // child
+          cells.add(_Cell(child: data.verticalHeaders![i], x: 0, y: i + 1));
         } else {
-          _addCell(widgets, emptyCell);
+          // emptyCell
+          cells.add(_Cell(child: data.emptyCell, x: 0, y: i + 1));
         }
-
-        final horizontalMaxCount = _getHorizontalMaxCount();
-
-        for (var cell = 0; cell < horizontalMaxCount; cell++) {
-          if (i >= items.length) {
-            _addCell(widgets, emptyCell);
-            continue;
-          }
-          if (cell + 1 > items[i].length) {
-            _addCell(widgets, emptyCell);
-            continue;
-          }
-          _addCell(widgets, items[i][cell]);
-        }
-        rows.add(TableRow(children: widgets));
       }
+
+      final horizontalMaxCount = _getHorizontalMaxCount();
+
+      // Other cells
+      for (var cell = 0; cell < horizontalMaxCount; cell++) {
+        // emptyCell
+        if (i >= data.items.length) {
+          cells.add(_Cell(child: data.emptyCell, x: cell, y: i + 1));
+          continue;
+        }
+        // emptyCell
+        if (cell + 1 > data.items[i].length) {
+          cells.add(_Cell(child: data.emptyCell, x: cell, y: i + 1));
+          continue;
+        }
+        // child
+        cells.add(_Cell(child: data.items[i][cell], x: cell, y: i + 1));
+      }
+      rows.add(_Row(index: i + 1, children: cells));
     }
 
     return rows;
@@ -212,71 +229,86 @@ class FespTable extends StatelessWidget {
   int _getHorizontalMaxCount() {
     int maxCount = 0;
 
-    for (var e in items) {
+    for (var e in data.items) {
       if (e.length > maxCount) maxCount = e.length;
     }
 
-    if (horizontalHeaders != null) {
-      if (horizontalHeaders!.length > maxCount) {
-        maxCount = horizontalHeaders!.length;
-      }
+    if (data.horizontalHeaders != null) {
+      return max(data.horizontalHeaders!.length, maxCount);
     }
 
     return maxCount;
   }
 
   int _getVerticalMaxCount() {
-    return verticalHeaders == null
-        ? items.length
+    return data.verticalHeaders == null
+        ? data.items.length
         : max(
-            items.length,
-            verticalHeaders!.length,
+            data.items.length,
+            data.verticalHeaders!.length,
           );
   }
+}
 
-  void _addCell(List<_Cell> data, Widget el) {
-    data.add(
-      _Cell(
-        horizontalAlignment: horizontalAlignment,
-        verticalAlignment: verticalAlignment,
-        width: width,
-        height: height,
-        child: el,
+class _Row extends StatelessWidget {
+  final int index;
+  final List<_Cell> children;
+
+  const _Row({
+    required this.children,
+    required this.index,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.read<_providerType>();
+    final data = provider.getValue();
+
+    return SizedBox(
+      height: data.rowHeightByIndex == null
+          ? data.rowHeight
+          : data.rowHeightByIndex!(index) ?? data.rowHeight,
+      child: Row(
+        children: children,
       ),
     );
   }
 }
 
 class _Cell extends StatelessWidget {
-  final Widget child;
-  final Alignment horizontalAlignment;
-  final TableCellVerticalAlignment verticalAlignment;
-  final double? width;
-  final double? height;
+  final int x;
+  final int y;
+  final String child;
 
   const _Cell({
+    required this.x,
+    required this.y,
     required this.child,
-    required this.horizontalAlignment,
-    required this.verticalAlignment,
-    this.width,
-    this.height,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TableCell(
-      verticalAlignment: verticalAlignment,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 4,
-          horizontal: 8,
+    final provider = context.read<_providerType>();
+    final data = provider.getValue();
+
+    return Container(
+      width: data.cellWidthByIndex == null
+          ? data.cellWidth
+          : data.cellWidthByIndex!(x, y) ?? data.cellWidth,
+      padding: const EdgeInsets.symmetric(
+        vertical: 4,
+        horizontal: 8,
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: FESP_ACTIVE_COLOR(context),
         ),
-        child: Align(
-          alignment: horizontalAlignment,
-          child: SizedBox(
-            height: height,
-            child: child,
-          ),
+      ),
+      child: Align(
+        alignment: Alignment.center,
+        child: FespMultiScroll(
+          horizontal: false,
+          child: data.builder(child, x, y),
         ),
       ),
     );
