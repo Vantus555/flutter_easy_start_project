@@ -16,16 +16,18 @@ class FespCode extends StatelessWidget {
       data: FespContainerData(
         padding: 10,
         fespBuilder0: (p0, p1) {
-          return Container(
+          return SizedBox(
             width: p1.width,
             height: p1.height,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(SLIDE_PANEL_BORDER_RADIUS),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(SLIDE_PANEL_BORDER_RADIUS),
+                ),
+                color: FESP_ACTIVE_COLOR(p0),
               ),
-              color: FESP_ACTIVE_COLOR(p0),
+              child: p1.child,
             ),
-            child: p1.child,
           );
         },
       ),

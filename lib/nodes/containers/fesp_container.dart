@@ -27,7 +27,7 @@ enum FespContainerType {
   builders: [
     FespNodeBuilderField(
       className: 'FespContainerBuilderData',
-      returnType: 'Container',
+      returnType: 'SizedBox',
       classFields: [
         FespNodeBuilderClassField(
           type: 'Widget',

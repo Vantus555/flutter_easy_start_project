@@ -26,11 +26,13 @@ class MyAppTableDictContainer {
 }
 
 class FespTableData {
+  static const double defautRowHeight = 45;
+  static const double defautColWidth = 100;
+  double _rowHeight = defautRowHeight;
+
   final dynamic emptyCell;
-  final double rowHeight = 45;
   final double? Function(int index)? rowHeightByIndex;
-  final double cellWidth = 100;
-  final double? Function(int x, int y)? cellWidthByIndex;
+  final double? Function(int index)? colWidthByIndex;
   final List<List<dynamic>> items;
   final Widget Function(dynamic item, int x, int y) builder;
   final Size gap;
@@ -40,7 +42,7 @@ class FespTableData {
   FespTableData({
     this.emptyCell = '-',
     this.rowHeightByIndex,
-    this.cellWidthByIndex,
+    this.colWidthByIndex,
     this.gap = const Size(0, 0),
     required this.items,
     required this.builder,
@@ -172,6 +174,9 @@ class FespTable extends StatelessWidget {
     final verticalMaxCount = data.verticalMaxCount;
     for (var i = 0; i < verticalMaxCount; i++) {
       List<_Cell> cells = [];
+      data._rowHeight = data.rowHeightByIndex == null
+          ? FespTableData.defautRowHeight
+          : data.rowHeightByIndex!(i) ?? FespTableData.defautRowHeight;
 
       // Other cells
       for (var cell = 0; cell < horizontalMaxCount; cell++) {
@@ -208,9 +213,7 @@ class _Row extends StatelessWidget {
         top: index == 0 ? 0 : data.gap.height,
       ),
       child: SizedBox(
-        height: data.rowHeightByIndex == null
-            ? data.rowHeight
-            : data.rowHeightByIndex!(index) ?? data.rowHeight,
+        height: data._rowHeight,
         child: Row(
           children: children,
         ),
@@ -242,12 +245,10 @@ class _Cell extends StatelessWidget {
           left: x == 0 ? 0 : data.gap.width,
         ),
         child: Container(
-          width: data.cellWidthByIndex == null
-              ? data.cellWidth
-              : data.cellWidthByIndex!(x, y) ?? data.cellWidth,
-          height: data.rowHeightByIndex == null
-              ? data.rowHeight
-              : data.rowHeightByIndex!(x) ?? data.rowHeight,
+          width: data.colWidthByIndex == null
+              ? FespTableData.defautColWidth
+              : data.colWidthByIndex!(x) ?? FespTableData.defautColWidth,
+          height: data._rowHeight,
           decoration: BoxDecoration(
             border: Border.all(
               color: FESP_ACTIVE_COLOR(context),

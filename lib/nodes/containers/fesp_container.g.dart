@@ -31,7 +31,7 @@ class $FespContainerBuilderData {
 }
 
 class _$FespContainerData {
-  final Container Function(
+  final SizedBox Function(
     BuildContext p0,
     $FespContainerBuilderData p1,
   )? fespBuilder0;
@@ -39,7 +39,7 @@ class _$FespContainerData {
   const _$FespContainerData({
     this.fespBuilder0,
   });
-  Container _$fespBuilder0(
+  SizedBox _$fespBuilder0(
     BuildContext p0,
     $FespContainerBuilderData p1,
   ) {
@@ -48,7 +48,7 @@ class _$FespContainerData {
             p0,
             p1,
           )
-        : Container(
+        : SizedBox(
             height: p1.height,
             width: p1.width,
             child: p1.child,
@@ -59,7 +59,7 @@ class _$FespContainerData {
 extension on FespContainerData {
   // ignore: unused_element
   FespContainerData copyWith({
-    final Container Function(
+    final SizedBox Function(
       BuildContext p0,
       $FespContainerBuilderData p1,
     )? fespBuilder0,
