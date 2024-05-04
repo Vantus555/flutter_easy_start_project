@@ -1,6 +1,5 @@
-import 'dart:html';
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_easy_start_project/nodes/fesp_multi_scroll.dart';
 import 'package:flutter_easy_start_project/themes/fesp_themes_consts.dart';
 import 'package:flutter_easy_start_project/view_models/fesp_value_change_provider.dart';
@@ -27,31 +26,33 @@ class MyAppTableDictContainer {
 }
 
 class FespTableData {
-  final String emptyCell;
-  final String firstCell;
-
-  final List<String>? horizontalHeaders;
-  final List<String>? verticalHeaders;
-
+  final dynamic emptyCell;
   final double rowHeight = 45;
   final double? Function(int index)? rowHeightByIndex;
-
   final double cellWidth = 100;
   final double? Function(int x, int y)? cellWidthByIndex;
-
-  final List<List<String>> items;
-  final Widget Function(String item, int x, int y) builder;
+  final List<List<dynamic>> items;
+  final Widget Function(dynamic item, int x, int y) builder;
+  final Size gap;
+  late final int verticalMaxCount;
+  late final int horizontalMaxCount;
 
   FespTableData({
     this.emptyCell = '-',
-    this.firstCell = '',
-    this.horizontalHeaders,
-    this.verticalHeaders,
     this.rowHeightByIndex,
     this.cellWidthByIndex,
+    this.gap = const Size(0, 0),
     required this.items,
     required this.builder,
-  });
+  }) {
+    verticalMaxCount = items.length;
+
+    int maxCount = 0;
+    for (var e in items) {
+      if (e.length > maxCount) maxCount = e.length;
+    }
+    horizontalMaxCount = maxCount;
+  }
 }
 
 class FespTable extends StatelessWidget {
@@ -145,7 +146,6 @@ class FespTable extends StatelessWidget {
       builder: (context, child) {
         List<Widget> children = [];
 
-        children.addAll(_getHorizontalHeaders());
         children.addAll(_getRows());
 
         return FespMultiScroll(
@@ -157,96 +157,35 @@ class FespTable extends StatelessWidget {
     );
   }
 
-  List<Widget> _getHorizontalHeaders() {
-    List<_Cell> headers = [];
-
-    // firstCell
-    if (data.horizontalHeaders != null && data.verticalHeaders != null) {
-      headers.add(_Cell(child: data.firstCell, x: 0, y: 0));
+  void _addCell(List<_Cell> container, dynamic el, int x, int y) {
+    if (el == null) {
+      container.add(_Cell(child: data.emptyCell, x: x, y: y));
+    } else {
+      container.add(_Cell(child: el, x: x, y: y));
     }
-
-    // Othe cells
-    if (data.horizontalHeaders != null) {
-      final maxCount = _getHorizontalMaxCount();
-
-      for (var i = 0; i < maxCount; i++) {
-        if (i + 1 > data.horizontalHeaders!.length) {
-          headers.add(_Cell(child: data.emptyCell, x: 0, y: i + 1));
-          continue;
-        }
-        headers.add(_Cell(child: data.horizontalHeaders![i], x: 0, y: i + 1));
-      }
-    }
-
-    if (headers.isEmpty) {
-      return [];
-    }
-    return [_Row(index: 0, children: headers)];
   }
 
   List<_Row> _getRows() {
     List<_Row> rows = [];
 
-    final verticalMaxCount = _getVerticalMaxCount();
-
+    final horizontalMaxCount = data.horizontalMaxCount;
+    final verticalMaxCount = data.verticalMaxCount;
     for (var i = 0; i < verticalMaxCount; i++) {
       List<_Cell> cells = [];
 
-      // vertical header
-      if (data.verticalHeaders != null) {
-        if (i < data.verticalHeaders!.length) {
-          // child
-          cells.add(_Cell(child: data.verticalHeaders![i], x: 0, y: i + 1));
-        } else {
-          // emptyCell
-          cells.add(_Cell(child: data.emptyCell, x: 0, y: i + 1));
-        }
-      }
-
-      final horizontalMaxCount = _getHorizontalMaxCount();
-
       // Other cells
       for (var cell = 0; cell < horizontalMaxCount; cell++) {
-        // emptyCell
-        if (i >= data.items.length) {
-          cells.add(_Cell(child: data.emptyCell, x: cell, y: i + 1));
-          continue;
+        dynamic el = data.emptyCell;
+        if (i < data.items.length && cell + 1 <= data.items[i].length) {
+          el = data.items[i][cell];
         }
-        // emptyCell
-        if (cell + 1 > data.items[i].length) {
-          cells.add(_Cell(child: data.emptyCell, x: cell, y: i + 1));
-          continue;
-        }
-        // child
-        cells.add(_Cell(child: data.items[i][cell], x: cell, y: i + 1));
+
+        _addCell(cells, el, cell, i);
       }
-      rows.add(_Row(index: i + 1, children: cells));
+      rows.add(_Row(index: i, children: cells));
     }
 
     return rows;
-  }
-
-  int _getHorizontalMaxCount() {
-    int maxCount = 0;
-
-    for (var e in data.items) {
-      if (e.length > maxCount) maxCount = e.length;
-    }
-
-    if (data.horizontalHeaders != null) {
-      return max(data.horizontalHeaders!.length, maxCount);
-    }
-
-    return maxCount;
-  }
-
-  int _getVerticalMaxCount() {
-    return data.verticalHeaders == null
-        ? data.items.length
-        : max(
-            data.items.length,
-            data.verticalHeaders!.length,
-          );
   }
 }
 
@@ -264,12 +203,17 @@ class _Row extends StatelessWidget {
     final provider = context.read<_providerType>();
     final data = provider.getValue();
 
-    return SizedBox(
-      height: data.rowHeightByIndex == null
-          ? data.rowHeight
-          : data.rowHeightByIndex!(index) ?? data.rowHeight,
-      child: Row(
-        children: children,
+    return Padding(
+      padding: EdgeInsets.only(
+        top: index == 0 ? 0 : data.gap.height,
+      ),
+      child: SizedBox(
+        height: data.rowHeightByIndex == null
+            ? data.rowHeight
+            : data.rowHeightByIndex!(index) ?? data.rowHeight,
+        child: Row(
+          children: children,
+        ),
       ),
     );
   }
@@ -291,23 +235,24 @@ class _Cell extends StatelessWidget {
     final provider = context.read<_providerType>();
     final data = provider.getValue();
 
-    return Container(
-      width: data.cellWidthByIndex == null
-          ? data.cellWidth
-          : data.cellWidthByIndex!(x, y) ?? data.cellWidth,
-      padding: const EdgeInsets.symmetric(
-        vertical: 4,
-        horizontal: 8,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: FESP_ACTIVE_COLOR(context),
+    return FespMultiScroll(
+      horizontal: false,
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: x == 0 ? 0 : data.gap.width,
         ),
-      ),
-      child: Align(
-        alignment: Alignment.center,
-        child: FespMultiScroll(
-          horizontal: false,
+        child: Container(
+          width: data.cellWidthByIndex == null
+              ? data.cellWidth
+              : data.cellWidthByIndex!(x, y) ?? data.cellWidth,
+          height: data.rowHeightByIndex == null
+              ? data.rowHeight
+              : data.rowHeightByIndex!(x) ?? data.rowHeight,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: FESP_ACTIVE_COLOR(context),
+            ),
+          ),
           child: data.builder(child, x, y),
         ),
       ),

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_start_project/nodes/containers/fesp_code.dart';
 import 'package:flutter_easy_start_project/nodes/fesp_table.dart';
@@ -12,15 +10,21 @@ class FespPresentationContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const gap = Size(2, 2);
+
     tableBuilder(item, x, y) {
-      final child = FespText(text: item);
-      if (x == 0 && y == 0) {
-        return ColoredBox(
-          color: FESP_ACTIVE_COLOR(context),
-          child: child,
-        );
+      Color? color;
+      if (y == 0 && x == 0) {
+        color = FESP_ACTIVE_COLOR(context);
+      } else if (y == 0 || x == 0) {
+        color = FESP_TAB_BAR_COLOR(context);
       }
-      return child;
+      return Container(
+        color: color,
+        child: Center(
+          child: FespText(text: item),
+        ),
+      );
     }
 
     return FespPresentationBasePage(
@@ -51,23 +55,23 @@ FespContainer(
         Center(
           child: FespTable(
             data: FespTableData(
-              firstCell: 'USUAL',
-              horizontalHeaders: const [
-                'xs < 576',
-                'sm < 768',
-                'md < 992',
-                'lg < 1200',
-                'xl < 1600',
-                'xxl > 1600'
-              ],
-              verticalHeaders: const ['FILL', 'XXL', 'XL', 'LG', 'MD', 'SM'],
+              gap: gap,
               items: const [
-                ['100%', '100%', '100%', '100%', '100%', '100%'],
-                ['100%', '100%', '100%', '100%', '100%', '1600'],
-                ['100%', '100%', '100%', '100%', '1200', '1600'],
-                ['100%', '100%', '100%', '992', '1200', '1600'],
-                ['100%', '100%', '768', '992', '1200', '1600'],
-                ['100%', '576', '768', '992', '1200', '1600'],
+                [
+                  'USUAL',
+                  'xs < 576',
+                  'sm < 768',
+                  'md < 992',
+                  'lg < 1200',
+                  'xl < 1600',
+                  'xxl > 1600'
+                ],
+                ['FILL', '100%', '100%', '100%', '100%', '100%', '100%'],
+                ['XXL', '100%', '100%', '100%', '100%', '100%', '1600'],
+                ['XL', '100%', '100%', '100%', '100%', '1200', '1600'],
+                ['LG', '100%', '100%', '100%', '992', '1200', '1600'],
+                ['MD', '100%', '100%', '768', '992', '1200', '1600'],
+                ['SM', '100%', '576', '768', '992', '1200', '1600'],
               ],
               builder: tableBuilder,
             ),
@@ -77,23 +81,23 @@ FespContainer(
         Center(
           child: FespTable(
             data: FespTableData(
-              firstCell: 'FIXED',
-              horizontalHeaders: const [
-                'xs < 576',
-                'sm < 768',
-                'md < 992',
-                'lg < 1200',
-                'xl < 1600',
-                'xxl > 1600'
-              ],
-              verticalHeaders: const ['FILL', 'XXL', 'XL', 'LG', 'MD', 'SM'],
+              gap: gap,
               items: const [
-                ['100%', '100%', '100%', '100%', '100%', '100%'],
-                ['100%', '100%', '100%', '100%', '100%', '1600'],
-                ['100%', '100%', '100%', '100%', '1200', '1600'],
-                ['100%', '100%', '100%', '992', '1200', '1600'],
-                ['100%', '100%', '768', '992', '1200', '1600'],
-                ['100%', '576', '768', '992', '1200', '1600'],
+                [
+                  'FIXED',
+                  'xs < 576',
+                  'sm < 768',
+                  'md < 992',
+                  'lg < 1200',
+                  'xl < 1600',
+                  'xxl > 1600'
+                ],
+                ['FILL', '100%', '100%', '100%', '100%', '100%', '100%'],
+                ['XXL', '100%', '100%', '100%', '100%', '100%', '1600'],
+                ['XL', '100%', '100%', '100%', '100%', '1200', '1600'],
+                ['LG', '100%', '100%', '100%', '992', '1200', '1600'],
+                ['MD', '100%', '100%', '768', '992', '1200', '1600'],
+                ['SM', '100%', '576', '768', '992', '1200', '1600'],
               ],
               builder: tableBuilder,
             ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easy_start_project/nodes/containers/fesp_vertical_tab_container.dart';
 import 'package:flutter_easy_start_project/pages/fesp_app.dart';
 import 'package:flutter_easy_start_project/nodes/containers/fesp_container.dart';
 import 'package:flutter_easy_start_project/pages/presentation/fesp_presentation_page.dart';
