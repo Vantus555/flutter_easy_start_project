@@ -32,7 +32,7 @@ class FespTableData {
 
   final dynamic emptyCell;
   final double? Function(int index)? rowHeightByIndex;
-  final double? Function(dynamic item, int index)? colWidthByIndex;
+  final double? Function(int index)? colWidthByIndex;
   List<List<dynamic>>? items;
   final Map<String, Map<String, String>>? fromDict;
   final dynamic firstCell;
@@ -216,7 +216,7 @@ class _Cell extends StatelessWidget {
         child: Container(
           width: data.colWidthByIndex == null
               ? FespTableData.defautColWidth
-              : data.colWidthByIndex!(child, x) ?? FespTableData.defautColWidth,
+              : data.colWidthByIndex!(x) ?? FespTableData.defautColWidth,
           height: data._rowHeight,
           decoration: BoxDecoration(
             border: Border.all(
