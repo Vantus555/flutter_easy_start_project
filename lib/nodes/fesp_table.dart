@@ -32,8 +32,10 @@ class FespTableData {
 
   final dynamic emptyCell;
   final double? Function(int index)? rowHeightByIndex;
-  final double? Function(int index)? colWidthByIndex;
-  final List<List<dynamic>> items;
+  final double? Function(dynamic item, int index)? colWidthByIndex;
+  List<List<dynamic>>? items;
+  final Map<String, Map<String, String>>? fromDict;
+  final dynamic firstCell;
   final Widget Function(dynamic item, int x, int y) builder;
   final Size gap;
   late final int verticalMaxCount;
@@ -44,16 +46,59 @@ class FespTableData {
     this.rowHeightByIndex,
     this.colWidthByIndex,
     this.gap = const Size(0, 0),
-    required this.items,
+    this.items,
+    this.fromDict,
+    this.firstCell = '-',
     required this.builder,
-  }) {
-    verticalMaxCount = items.length;
+  }) : assert((items == null || fromDict == null),
+            'One of them items || fromDict must be != null') {
+    if (fromDict == null) {
+      verticalMaxCount = items!.length;
 
-    int maxCount = 0;
-    for (var e in items) {
-      if (e.length > maxCount) maxCount = e.length;
+      int maxCount = 0;
+      for (var e in items!) {
+        if (e.length > maxCount) maxCount = e.length;
+      }
+      horizontalMaxCount = maxCount;
+    } else {
+      items = [];
+      final List<String> verticalHeaders = fromDict!.entries
+          .map(
+            (e) => e.key,
+          )
+          .toList();
+      final Set<String> horizontalHeaders = {};
+
+      final entries = fromDict!.entries;
+
+      int maxCount = 0;
+      for (var e in entries) {
+        if (e.value.length > maxCount) maxCount = e.value.length;
+        horizontalHeaders.addAll(e.value.keys);
+      }
+      verticalMaxCount = entries.length + 1;
+      horizontalMaxCount = maxCount + 1;
+
+      final horizontalHeadersList = horizontalHeaders.toList();
+      items!.addAll([
+        [firstCell, ...horizontalHeadersList]
+      ]);
+
+      for (var v in verticalHeaders) {
+        final List<dynamic> row = [];
+
+        final dict = fromDict!;
+        for (var i = 0; i < horizontalHeadersList.length; i++) {
+          final h = horizontalHeadersList[i];
+          if (dict[v]!.containsKey(h)) {
+            row.add(dict[v]![h]!);
+          } else {
+            row.add(null);
+          }
+        }
+        items!.add([v, ...row]);
+      }
     }
-    horizontalMaxCount = maxCount;
   }
 }
 
@@ -64,82 +109,6 @@ class FespTable extends StatelessWidget {
     super.key,
     required this.data,
   });
-
-  // factory FespTable.fromDict({
-  //   Key? key,
-  //   required final Map<MyAppTableDictContainer,
-  //           Map<MyAppTableDictContainer, Widget>>
-  //       items,
-  //   final finishedTable = false,
-  // }) {
-  //   final verticalData = items.values.map((e) => e.keys).toList();
-  //   List<String> verticalHeadersString = [];
-  //   List<Widget> verticalHeaders = [];
-
-  //   for (var e in verticalData) {
-  //     if (verticalHeaders.isEmpty) {
-  //       verticalHeadersString = e.map((e) => e.title).toList();
-  //       verticalHeaders = e.map((e) => e.value).toList();
-  //       continue;
-  //     }
-  //     for (var element in e) {
-  //       if (!verticalHeadersString.contains(element.title)) {
-  //         verticalHeadersString.add(element.title);
-  //         verticalHeaders.add(element.value);
-  //       }
-  //     }
-  //   }
-
-  //   List<String> horizontalHeadersString = [];
-  //   List<Widget> horizontalHeaders = [];
-
-  //   for (var element in items.keys) {
-  //     final found = horizontalHeadersString.where(
-  //       (e) => e == element.title,
-  //     );
-
-  //     if (found.isEmpty) {
-  //       horizontalHeadersString.add(element.title);
-  //       horizontalHeaders.add(element.value);
-  //     }
-  //   }
-
-  //   List<List<Widget>> newItems = [];
-
-  //   if (!finishedTable) {
-  //     for (var vertical in verticalHeadersString) {
-  //       List<Widget> objs = [];
-  //       for (var horizontal in items.entries) {
-  //         final found = horizontal.value.entries
-  //             .where((element) => element.key.title == vertical)
-  //             .toList();
-  //         if (found.isEmpty) {
-  //           objs.add(const Text('-'));
-  //           continue;
-  //         }
-  //         objs.add(found[0].value);
-  //       }
-  //       newItems.add(objs);
-  //     }
-  //   } else {
-  //     for (var horizontal in items.entries) {
-  //       newItems.add(horizontal.value.entries.map((e) => e.value).toList());
-  //     }
-  //   }
-
-  //   return FespTable(
-  //     key: key,
-  //     emptyCell: emptyCell,
-  //     firstCell: firstCell,
-  //     width: width,
-  //     height: height,
-  //     verticalHeaders: verticalHeaders,
-  //     horizontalHeaders: horizontalHeaders,
-  //     items: newItems,
-  //     horizontalAlignment: horizontalAlignment,
-  //     verticalAlignment: verticalAlignment,
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -181,8 +150,8 @@ class FespTable extends StatelessWidget {
       // Other cells
       for (var cell = 0; cell < horizontalMaxCount; cell++) {
         dynamic el = data.emptyCell;
-        if (i < data.items.length && cell + 1 <= data.items[i].length) {
-          el = data.items[i][cell];
+        if (i < data.items!.length && cell + 1 <= data.items![i].length) {
+          el = data.items![i][cell];
         }
 
         _addCell(cells, el, cell, i);
@@ -225,7 +194,7 @@ class _Row extends StatelessWidget {
 class _Cell extends StatelessWidget {
   final int x;
   final int y;
-  final String child;
+  final dynamic child;
 
   const _Cell({
     required this.x,
@@ -247,7 +216,7 @@ class _Cell extends StatelessWidget {
         child: Container(
           width: data.colWidthByIndex == null
               ? FespTableData.defautColWidth
-              : data.colWidthByIndex!(x) ?? FespTableData.defautColWidth,
+              : data.colWidthByIndex!(child, x) ?? FespTableData.defautColWidth,
           height: data._rowHeight,
           decoration: BoxDecoration(
             border: Border.all(
