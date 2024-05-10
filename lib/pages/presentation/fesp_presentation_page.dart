@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy_start_project/nodes/containers/fesp_vertical_tab_container.dart';
 import 'package:flutter_easy_start_project/pages/presentation/fesp_presentation_about.dart';
 import 'package:flutter_easy_start_project/pages/presentation/fesp_presentation_container.dart';
+import 'package:flutter_easy_start_project/pages/presentation/fesp_presentation_quickstart.dart';
 
 class FespPresentationPage extends StatelessWidget {
   const FespPresentationPage({super.key});
@@ -11,13 +12,14 @@ class FespPresentationPage extends StatelessWidget {
     return FespVerticalTabContainer(
       data: FespVerticalTabContainerData(
         titles: [
-          'container',
-          // 'quick start',
+          'quick start',
           'about',
+          'container',
         ],
         children: const [
-          FespPresentationContainer(),
+          FespPresentationQuickStart(),
           FespPresentationAbout(),
+          FespPresentationContainer(),
         ],
       ),
     );
