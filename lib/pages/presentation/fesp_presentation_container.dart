@@ -56,7 +56,7 @@ FespContainer(
           child: FespTable(
             data: FespTableData(
               gap: gap,
-              items: const [
+              rows: const [
                 [
                   'USUAL',
                   'xs < 576',

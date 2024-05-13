@@ -8,23 +8,6 @@ import 'package:provider/provider.dart';
 // ignore: camel_case_types
 typedef _providerType = FespValueChangeProvider<FespTableData>;
 
-class MyAppTableDictContainer {
-  final String title;
-  final Widget value;
-
-  const MyAppTableDictContainer({
-    required this.title,
-    required this.value,
-  });
-
-  @override
-  // ignore: hash_and_equals, non_nullable_equals_parameter
-  bool operator ==(Object? other) {
-    if (other is MyAppTableDictContainer) return title == other.title;
-    return super == (other);
-  }
-}
-
 class FespTableData {
   static const double defautRowHeight = 45;
   static const double defautColWidth = 100;
@@ -33,7 +16,7 @@ class FespTableData {
   final dynamic emptyCell;
   final double? Function(int index)? rowHeightByIndex;
   final double? Function(int index)? colWidthByIndex;
-  List<List<dynamic>>? items;
+  List<List<dynamic>>? rows;
   final Map<String, Map<String, String>>? fromDict;
   final dynamic firstCell;
   final Widget Function(dynamic item, int x, int y) builder;
@@ -46,22 +29,22 @@ class FespTableData {
     this.rowHeightByIndex,
     this.colWidthByIndex,
     this.gap = const Size(0, 0),
-    this.items,
+    this.rows,
     this.fromDict,
     this.firstCell = '-',
     required this.builder,
-  }) : assert((items == null || fromDict == null),
-            'One of them items || fromDict must be != null') {
+  }) : assert((rows == null || fromDict == null),
+            'One of them rows || fromDict must be != null') {
     if (fromDict == null) {
-      verticalMaxCount = items!.length;
+      verticalMaxCount = rows!.length;
 
       int maxCount = 0;
-      for (var e in items!) {
+      for (var e in rows!) {
         if (e.length > maxCount) maxCount = e.length;
       }
       horizontalMaxCount = maxCount;
     } else {
-      items = [];
+      rows = [];
       final List<String> verticalHeaders = fromDict!.entries
           .map(
             (e) => e.key,
@@ -80,7 +63,7 @@ class FespTableData {
       horizontalMaxCount = maxCount + 1;
 
       final horizontalHeadersList = horizontalHeaders.toList();
-      items!.addAll([
+      rows!.addAll([
         [firstCell, ...horizontalHeadersList]
       ]);
 
@@ -96,7 +79,7 @@ class FespTableData {
             row.add(null);
           }
         }
-        items!.add([v, ...row]);
+        rows!.add([v, ...row]);
       }
     }
   }
@@ -150,8 +133,8 @@ class FespTable extends StatelessWidget {
       // Other cells
       for (var cell = 0; cell < horizontalMaxCount; cell++) {
         dynamic el = data.emptyCell;
-        if (i < data.items!.length && cell + 1 <= data.items![i].length) {
-          el = data.items![i][cell];
+        if (i < data.rows!.length && cell + 1 <= data.rows![i].length) {
+          el = data.rows![i][cell];
         }
 
         _addCell(cells, el, cell, i);
