@@ -1,0 +1,23 @@
+name: fesp_node_builders
+description: "fesp_node_builders"
+repository: https://github.com/Vantus555/packages/fesp_node_builders
+version: 1.0.1
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies:
+  source_gen: ^1.5.0
+  build_runner: ^2.4.9
+  analyzer: ^6.4.1
+  build: ^2.4.1
+
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+flutter:
+  uses-material-design: true
