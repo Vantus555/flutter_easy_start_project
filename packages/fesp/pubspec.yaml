@@ -1,7 +1,7 @@
 name: flutter_easy_start_project
 description: "flutter_easy_start_project"
-repository: https://github.com/Vantus555/flutter_easy_start_project
-version: 0.1.0
+repository: https://github.com/Vantus555/packages/fesp
+version: 0.1.1
 
 environment:
   sdk: '>=3.3.3 <4.0.0'
