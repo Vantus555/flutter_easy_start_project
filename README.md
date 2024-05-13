@@ -1,3 +1,3 @@
 # flutter_easy_start_project
 
-A new Flutter project.
+## v0.1
