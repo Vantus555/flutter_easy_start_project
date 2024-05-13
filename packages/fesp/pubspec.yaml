@@ -19,8 +19,6 @@ dependencies:
   intl: ^0.19.0
   copy_with_extension_gen: ^5.0.4
 
-  cupertino_icons: ^1.0.6
-
   fesp_node_builders: ^1.0.1
 
 dev_dependencies:
