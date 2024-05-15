@@ -72,9 +72,9 @@ class FespRadioListBuilderData extends _$FespRadioListBuilderData {
   });
 }
 
-class MyAppRadioList extends StatelessWidget {
+class FespRadioList extends StatelessWidget {
   final FespRadioListBuilderData data;
-  const MyAppRadioList({
+  const FespRadioList({
     super.key,
     required this.data,
   });

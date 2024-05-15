@@ -9,14 +9,14 @@ part of 'fesp_list_tile.dart';
 class $FespListTileBuilderData {
   final Widget title;
   final Widget? leading;
-  final Widget trailing;
+  final Widget? trailing;
   final ShapeBorder shape;
   final void Function()? onTap;
 
   const $FespListTileBuilderData({
     required this.title,
     this.leading,
-    required this.trailing,
+    this.trailing,
     required this.shape,
     this.onTap,
   });

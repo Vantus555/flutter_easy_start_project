@@ -17,7 +17,7 @@ class FespTableData {
   final double? Function(int index)? rowHeightByIndex;
   final double? Function(int index)? colWidthByIndex;
   List<List<dynamic>>? rows;
-  final Map<String, Map<String, String>>? fromDict;
+  final Map<Object, Map<Object, Object>>? fromDict;
   final dynamic firstCell;
   final Widget Function(dynamic item, int x, int y) builder;
   final Size gap;
@@ -45,12 +45,12 @@ class FespTableData {
       horizontalMaxCount = maxCount;
     } else {
       rows = [];
-      final List<String> verticalHeaders = fromDict!.entries
+      final List<Object> verticalHeaders = fromDict!.entries
           .map(
             (e) => e.key,
           )
           .toList();
-      final Set<String> horizontalHeaders = {};
+      final Set<Object> horizontalHeaders = {};
 
       final entries = fromDict!.entries;
 

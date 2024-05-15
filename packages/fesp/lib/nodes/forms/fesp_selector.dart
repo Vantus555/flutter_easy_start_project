@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 part 'fesp_selector.g.dart';
 
 // ignore: camel_case_types
-typedef _providerType = FespValueChangeProvider<Object>;
+typedef _providerType = FespValueChangeProvider<Object?>;
 
 @FespNodeBuildersA(
   builders: [
@@ -25,7 +25,7 @@ typedef _providerType = FespValueChangeProvider<Object>;
           name: 'decoration',
         ),
         FespNodeBuilderClassField(
-          type: 'Object',
+          type: 'dynamic',
           name: 'value',
         ),
         FespNodeBuilderClassField(
@@ -55,17 +55,17 @@ typedef _providerType = FespValueChangeProvider<Object>;
   ],
   invalidTypes: ['EdgeInsetsGeometry'],
 )
-class FespSelector extends _$FespSelector {
+class FespSelectorData extends _$FespSelectorData {
   final Map<Object, Widget> items;
   final String labelText;
-  final Object initializeValue;
+  final dynamic initializeValue;
   final void Function(dynamic value)? onChanged;
   final EdgeInsetsGeometry padding;
 
-  const FespSelector({
+  const FespSelectorData({
     required this.items,
     required this.labelText,
-    required this.initializeValue,
+    this.initializeValue,
     this.onChanged,
     this.padding = const EdgeInsets.all(10),
     super.fespBuilder0,
@@ -92,10 +92,10 @@ class FespSelector extends _$FespSelector {
   }
 }
 
-class MyAppSelector extends StatelessWidget {
-  final FespSelector data;
+class FespSelector extends StatelessWidget {
+  final FespSelectorData data;
 
-  const MyAppSelector({
+  const FespSelector({
     super.key,
     required this.data,
   });

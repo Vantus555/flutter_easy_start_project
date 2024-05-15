@@ -20,7 +20,7 @@ part 'fesp_list_tile.g.dart';
           name: 'leading',
         ),
         FespNodeBuilderClassField(
-          type: 'Widget',
+          type: 'Widget?',
           name: 'trailing',
         ),
         FespNodeBuilderClassField(
@@ -40,7 +40,7 @@ class FespListTileData extends _$FespListTileData {
   final bool material;
   final Widget title;
   final Function() onTap;
-  final Widget trailing;
+  final Widget? trailing;
   final Widget? leading;
   final EdgeInsetsGeometry padding;
 

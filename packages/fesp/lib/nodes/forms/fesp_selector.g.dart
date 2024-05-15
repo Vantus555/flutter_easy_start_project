@@ -9,7 +9,7 @@ part of 'fesp_selector.dart';
 class $FespSelectorBuilderData {
   final bool isExpanded;
   final InputDecoration decoration;
-  final Object value;
+  final dynamic value;
   final List<DropdownMenuItem<Object>> items;
   final void Function(dynamic value)? onChanged;
 
@@ -24,7 +24,7 @@ class $FespSelectorBuilderData {
   $FespSelectorBuilderData copyWith({
     bool? isExpanded,
     InputDecoration? decoration,
-    Object? value,
+    dynamic value,
     List<DropdownMenuItem<Object>>? items,
     void Function(dynamic value)? onChanged,
   }) {
@@ -58,7 +58,7 @@ class $FespDropdownMenuItemBuilderData {
   }
 }
 
-class _$FespSelector {
+class _$FespSelectorData {
   final DropdownButtonFormField Function(
     BuildContext p0,
     $FespSelectorBuilderData p1,
@@ -68,7 +68,7 @@ class _$FespSelector {
     $FespDropdownMenuItemBuilderData p1,
   )? fespBuilder1;
 
-  const _$FespSelector({
+  const _$FespSelectorData({
     this.fespBuilder0,
     this.fespBuilder1,
   });
@@ -106,9 +106,9 @@ class _$FespSelector {
   }
 }
 
-extension on FespSelector {
+extension on FespSelectorData {
   // ignore: unused_element
-  FespSelector copyWith({
+  FespSelectorData copyWith({
     final DropdownButtonFormField Function(
       BuildContext p0,
       $FespSelectorBuilderData p1,
@@ -119,11 +119,11 @@ extension on FespSelector {
     )? fespBuilder1,
     Map<Object, Widget>? items,
     String? labelText,
-    Object? initializeValue,
+    dynamic initializeValue,
     void Function(dynamic)? onChanged,
     EdgeInsetsGeometry? padding,
   }) {
-    return FespSelector(
+    return FespSelectorData(
       fespBuilder0: fespBuilder0 ?? this.fespBuilder0,
       fespBuilder1: fespBuilder1 ?? this.fespBuilder1,
       items: items ?? this.items,
